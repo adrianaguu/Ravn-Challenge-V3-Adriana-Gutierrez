@@ -14,29 +14,45 @@ struct PokemonList: View {
 
     var body: some View {
         NavigationView {
-            if viewModel.pokemons.isEmpty {
-                ProgressView()
-                    .onAppear(perform: viewModel.fetchPokemons)
-            } else {
-                List {
-                    ForEach(viewModel.pokemons) { pokemon in
-                        NavigationLink {
-                            PokemonDetail()
-                        } label: {
-                            PokemonCell(pokemon: pokemon)
-                        }
-                    }
-
+            VStack {
+                if viewModel.pokemons.isEmpty {
+                    ProgressView()
+                        .onAppear(perform: viewModel.fetchPokemons)
+                } else {
+                    listOfPokemons
                 }
-                .searchable(text: $searchText)
-                .navigationTitle("Pokemon List")
-                .listStyle(.plain)
+            }
+            .navigationTitle("Pokemon List")
+        }
+        .searchable(text: $searchText)
+    }
+
+    private var searchResults: [Pokemon] {
+        if searchText.isEmpty {
+            return viewModel.pokemons
+        } else {
+            return viewModel.pokemons.filter {
+                return $0.name.starts(with: searchText.lowercased())
             }
         }
     }
 
-    var searchResults: [Pokemon] {
-        viewModel.pokemons
+    private var listOfPokemons: some View {
+        List {
+            ForEach(searchResults) { pokemon in
+                ZStack {
+                    PokemonCell(pokemon: pokemon)
+
+                    NavigationLink(destination: PokemonDetail()) {
+                        EmptyView()
+                    }
+                    .opacity(.zero)
+                    .buttonStyle(PlainButtonStyle())
+                }
+                .listRowSeparator(.hidden)
+            }
+        }
+        .listStyle(.plain)
     }
 }
 
