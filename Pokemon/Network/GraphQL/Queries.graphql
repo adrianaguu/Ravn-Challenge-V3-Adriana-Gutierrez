@@ -1,0 +1,14 @@
+query GetAllPokemons {
+  allPokemon {
+    sprites {
+      front_default
+      front_shiny
+    }
+    name
+    id
+    types {
+      name
+    }
+    generation
+  }
+}

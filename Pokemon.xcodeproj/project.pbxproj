@@ -20,6 +20,12 @@
 		A499BBEE277ABB3800A66B8C /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499BBED277ABB3800A66B8C /* Color+Extensions.swift */; };
 		A4D768A7277B4340009F2DAE /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D768A6277B4340009F2DAE /* String+Extensions.swift */; };
 		A4D768A9277B5B74009F2DAE /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D768A8277B5B74009F2DAE /* K.swift */; };
+		A4D768AD277B607C009F2DAE /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = A4D768AC277B607C009F2DAE /* Apollo */; };
+		A4D768AF277B61CF009F2DAE /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = A4D768AE277B61CF009F2DAE /* schema.json */; };
+		A4D768B2277B6268009F2DAE /* Queries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A4D768B1277B6268009F2DAE /* Queries.graphql */; };
+		A4D768B5277B668B009F2DAE /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D768B4277B668B009F2DAE /* API.swift */; };
+		A4D768B8277B6B20009F2DAE /* PokemonListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D768B7277B6B20009F2DAE /* PokemonListViewModel.swift */; };
+		A4D768BC277B6E03009F2DAE /* PokemonsListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D768BB277B6E03009F2DAE /* PokemonsListService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +43,11 @@
 		A499BBED277ABB3800A66B8C /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		A4D768A6277B4340009F2DAE /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		A4D768A8277B5B74009F2DAE /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
+		A4D768AE277B61CF009F2DAE /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
+		A4D768B1277B6268009F2DAE /* Queries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Queries.graphql; sourceTree = "<group>"; };
+		A4D768B4277B668B009F2DAE /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		A4D768B7277B6B20009F2DAE /* PokemonListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewModel.swift; sourceTree = "<group>"; };
+		A4D768BB277B6E03009F2DAE /* PokemonsListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonsListService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4D768AD277B607C009F2DAE /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,11 +81,14 @@
 		A499BBA7277A79A200A66B8C /* Pokemon */ = {
 			isa = PBXGroup;
 			children = (
+				A4D768B9277B6DC5009F2DAE /* Network */,
+				A4D768B6277B6983009F2DAE /* ViewModels */,
 				A499BBEC277ABB2900A66B8C /* Extensions */,
 				A499BBBB277AB17400A66B8C /* Model */,
 				A499BBB6277A7C8E00A66B8C /* Views */,
 				A499BBA8277A79A200A66B8C /* PokemonApp.swift */,
 				A499BBAA277A79A200A66B8C /* ContentView.swift */,
+				A4D768AE277B61CF009F2DAE /* schema.json */,
 				A499BBC2277AB4A500A66B8C /* Resources */,
 				A499BBAE277A79A300A66B8C /* Preview Content */,
 				A4D768A8277B5B74009F2DAE /* K.swift */,
@@ -126,6 +141,40 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		A4D768B0277B622B009F2DAE /* GraphQL */ = {
+			isa = PBXGroup;
+			children = (
+				A4D768B4277B668B009F2DAE /* API.swift */,
+				A4D768B1277B6268009F2DAE /* Queries.graphql */,
+			);
+			path = GraphQL;
+			sourceTree = "<group>";
+		};
+		A4D768B6277B6983009F2DAE /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A4D768B7277B6B20009F2DAE /* PokemonListViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A4D768B9277B6DC5009F2DAE /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A4D768BA277B6DE2009F2DAE /* Services */,
+				A4D768B0277B622B009F2DAE /* GraphQL */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		A4D768BA277B6DE2009F2DAE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A4D768BB277B6E03009F2DAE /* PokemonsListService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -133,7 +182,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A499BBB3277A79A300A66B8C /* Build configuration list for PBXNativeTarget "Pokemon" */;
 			buildPhases = (
-				A4D768AA277B5C1D009F2DAE /* ShellScript */,
+				A4D768B3277B64FA009F2DAE /* Generate Apollo GraphQL API */,
 				A499BBA1277A79A200A66B8C /* Sources */,
 				A499BBA2277A79A200A66B8C /* Frameworks */,
 				A499BBA3277A79A200A66B8C /* Resources */,
@@ -143,6 +192,9 @@
 			dependencies = (
 			);
 			name = Pokemon;
+			packageProductDependencies = (
+				A4D768AC277B607C009F2DAE /* Apollo */,
+			);
 			productName = Pokemon;
 			productReference = A499BBA5277A79A200A66B8C /* Pokemon.app */;
 			productType = "com.apple.product-type.application";
@@ -171,6 +223,9 @@
 				Base,
 			);
 			mainGroup = A499BB9C277A79A200A66B8C;
+			packageReferences = (
+				A4D768AB277B607C009F2DAE /* XCRemoteSwiftPackageReference "apollo-ios" */,
+			);
 			productRefGroup = A499BBA6277A79A200A66B8C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -186,8 +241,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A499BBEB277AB85700A66B8C /* Colors.xcassets in Resources */,
+				A4D768AF277B61CF009F2DAE /* schema.json in Resources */,
 				A499BBB0277A79A300A66B8C /* Preview Assets.xcassets in Resources */,
 				A499BBC1277AB49100A66B8C /* Images.xcassets in Resources */,
+				A4D768B2277B6268009F2DAE /* Queries.graphql in Resources */,
 				A499BBAD277A79A300A66B8C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -195,7 +252,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A4D768AA277B5C1D009F2DAE /* ShellScript */ = {
+		A4D768B3277B64FA009F2DAE /* Generate Apollo GraphQL API */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -204,13 +261,14 @@
 			);
 			inputPaths = (
 			);
+			name = "Generate Apollo GraphQL API";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nPATH=/opt/homebrew/bin:$PATH\nif [ -f ~/com.raywenderlich.swiftlint.yml ]; then\n  if which swiftlint >/dev/null; then\n    swiftlint --no-cache --config ~/com.raywenderlich.swiftlint.yml\n  fi\nfi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n\n# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" API.swift\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -223,9 +281,12 @@
 				A499BBBD277AB18B00A66B8C /* Pokemon.swift in Sources */,
 				A499BBAB277A79A200A66B8C /* ContentView.swift in Sources */,
 				A499BBA9277A79A200A66B8C /* PokemonApp.swift in Sources */,
+				A4D768B5277B668B009F2DAE /* API.swift in Sources */,
+				A4D768BC277B6E03009F2DAE /* PokemonsListService.swift in Sources */,
 				A499BBBA277AAF4A00A66B8C /* PokemonDetail.swift in Sources */,
 				A4D768A7277B4340009F2DAE /* String+Extensions.swift in Sources */,
 				A499BBEE277ABB3800A66B8C /* Color+Extensions.swift in Sources */,
+				A4D768B8277B6B20009F2DAE /* PokemonListViewModel.swift in Sources */,
 				A499BBB8277A853000A66B8C /* PokemonList.swift in Sources */,
 				A499BBBF277AB36200A66B8C /* PokemonCell.swift in Sources */,
 			);
@@ -432,6 +493,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A4D768AB277B607C009F2DAE /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A4D768AC277B607C009F2DAE /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A4D768AB277B607C009F2DAE /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A499BB9D277A79A200A66B8C /* Project object */;
 }

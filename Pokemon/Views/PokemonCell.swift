@@ -28,8 +28,8 @@ struct PokemonCell: View {
 
                 Spacer()
 
-                ForEach(pokemon.types) { type in
-                    Image("Types/\(type)")
+                ForEach(pokemon.types, id: \.self.name ) { type in
+                    Image("Types/\(type.name)")
                 }
             }
             .padding(.horizontal, 16)
@@ -50,12 +50,13 @@ struct PokemonCell: View {
 
 @available(iOS 15.0, *)
 struct PokemonCell_Previews: PreviewProvider {
-    static let pokemonToDisplay = Pokemon (
+    static let pokemonToDisplay = Pokemon(
         id: 1,
         name: "bulbasaur",
         defaultFrontalSprite: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"),
         shinyFrontalSprite: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png"),
-        types: ["Grass", "Poison"]
+        types: [PokemonType(name: "Grass"), PokemonType(name: "Poison")],
+        generation: "Generation I"
     )
 
     static var previews: some View {

@@ -9,32 +9,35 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 struct PokemonList: View {
-        @State private var searchText = ""
+    @State private var searchText = ""
+    @StateObject var viewModel = PokemonListViewModel()
 
-        var body: some View {
-            NavigationView {
+    var body: some View {
+        NavigationView {
+            if viewModel.pokemons.isEmpty {
+                ProgressView()
+                    .onAppear(perform: viewModel.fetchPokemons)
+            } else {
                 List {
-                    ForEach(searchResults, id: \.self) { name in
+                    ForEach(viewModel.pokemons) { pokemon in
                         NavigationLink {
                             PokemonDetail()
                         } label: {
-                            Text(name)
+                            PokemonCell(pokemon: pokemon)
                         }
                     }
+
                 }
                 .searchable(text: $searchText)
                 .navigationTitle("Pokemon List")
+                .listStyle(.plain)
             }
-            .listStyle(.plain)
         }
+    }
 
-        var searchResults: [String] {
-            if searchText.isEmpty {
-                return names
-            } else {
-                return names.filter { $0.contains(searchText) }
-            }
-        }
+    var searchResults: [Pokemon] {
+        viewModel.pokemons
+    }
 }
 
 @available(iOS 15.0, *)
