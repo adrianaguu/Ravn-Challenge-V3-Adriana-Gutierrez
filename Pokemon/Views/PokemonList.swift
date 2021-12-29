@@ -32,6 +32,13 @@ struct PokemonList: View {
             }
         }
         .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
+        .alert(item: $viewModel.failureMessage) { failureMessage in
+            Alert(
+                title: Text("There was an Error"),
+                message: Text(failureMessage),
+                dismissButton: .default(Text("OK"))
+            )
+        }
         .onAppear() {
             UINavigationBar.appearance().backgroundColor = UIColor(.cellBackground)
         }
