@@ -16,6 +16,25 @@ final class PokemonListViewModel: ObservableObject {
     private var service = PokemonsListService.shared
     @Published var pokemons: [Pokemon] = []
     @Published var failureMessage: String?
+    @Published var searchText = ""
+
+    var searchResults: [Pokemon] {
+        if searchText.isEmpty {
+            return pokemons
+        } else {
+            return pokemons.filter {
+                return $0.name.starts(with: searchText.lowercased())
+            }
+        }
+    }
+
+    var pokemonsSectioned: [String: [Pokemon]] {
+        Dictionary(grouping: searchResults, by: { $0.generation })
+    }
+
+    var generations: [String] {
+        pokemonsSectioned.keys.sorted(by: <).map { String($0) }
+    }
 
     func fetchPokemons() {
         service.client.fetch(query: GetAllPokemonsQuery()) { [weak self] result in

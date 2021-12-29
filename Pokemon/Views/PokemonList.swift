@@ -9,7 +9,6 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 struct PokemonList: View {
-    @State private var searchText = ""
     @StateObject var viewModel = PokemonListViewModel()
 
     var body: some View {
@@ -24,32 +23,32 @@ struct PokemonList: View {
             }
             .navigationTitle("Pokemon List")
         }
-        .searchable(text: $searchText)
-    }
-
-    private var searchResults: [Pokemon] {
-        if searchText.isEmpty {
-            return viewModel.pokemons
-        } else {
-            return viewModel.pokemons.filter {
-                return $0.name.starts(with: searchText.lowercased())
-            }
-        }
+        .searchable(text: $viewModel.searchText)
     }
 
     private var listOfPokemons: some View {
         List {
-            ForEach(searchResults) { pokemon in
-                ZStack {
-                    PokemonCell(pokemon: pokemon)
+            ForEach(viewModel.generations) { generation in
+                VStack(alignment: .leading, spacing: .zero) {
+                    Text(generation)
+                        .font(.title3)
 
-                    NavigationLink(destination: PokemonDetail()) {
-                        EmptyView()
-                    }
-                    .opacity(.zero)
-                    .buttonStyle(PlainButtonStyle())
+                    Divider()
                 }
                 .listRowSeparator(.hidden)
+
+                ForEach(viewModel.pokemonsSectioned[generation]!) { pokemon in
+                    ZStack {
+                        PokemonCell(pokemon: pokemon)
+
+                        NavigationLink(destination: PokemonDetail()) {
+                            EmptyView()
+                        }
+                        .opacity(.zero)
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                    .listRowSeparator(.hidden)
+                }
             }
         }
         .listStyle(.plain)
