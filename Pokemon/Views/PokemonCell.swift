@@ -6,45 +6,54 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 @available(iOS 15.0, *)
 struct PokemonCell: View {
     let pokemon: Pokemon
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: K.PokemonCell.conerRadius)
+            RoundedRectangle(cornerRadius: K.PokemonCell.rectangleConerRadius)
                 .foregroundColor(.cellBackground)
 
             HStack(spacing: .zero) {
                 sprite
 
-                VStack(alignment: .leading) {
-                    Text(pokemon.name.capitalized)
-                        .font(.body)
-                        .fontWeight(.semibold)
-
-                    Text("#" + String(format: "%03d", pokemon.id))
-                }
+                nameAndId
 
                 Spacer()
 
-                ForEach(pokemon.types, id: \.self.name ) { type in
-                    Image("Types/\(type.name)")
-                }
+                types
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal, K.PokemonCell.horizontalPaddingRectangle)
         }
-        .padding(.leading, 24)
+        .padding(.leading, K.PokemonCell.leadingPadding)
     }
 
-    var sprite: some View {
-        AsyncImage(url: pokemon.defaultFrontalSprite) { image in
-            image.resizable()
-        } placeholder: {
-            ProgressView()
+    private var nameAndId: some View {
+        VStack(alignment: .leading) {
+            Text(pokemon.name.capitalized)
+                .font(.body)
+                .fontWeight(.semibold)
+
+            Text("#" + String(format: "%03d", pokemon.id))
         }
-        .frame(width: 72, height: 72)
-        .padding(.leading, -46)
+    }
+
+    private var sprite: some View {
+        KFImage(pokemon.defaultFrontalSprite)
+            .placeholder {
+                ProgressView()
+            }
+            .resizable()
+            .frame(width: K.PokemonCell.spriteWidth, height: K.PokemonCell.spriteHeight)
+            .padding(.leading, K.PokemonCell.spriteSetOffX)
+    }
+
+    private var types: some View {
+        ForEach(pokemon.types, id: \.self.name ) { type in
+            Image("Types/\(type.name)")
+        }
     }
 }
 

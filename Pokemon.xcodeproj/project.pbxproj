@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A4683991277CC21700901389 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A4683990277CC21700901389 /* Kingfisher */; };
 		A499BBA9277A79A200A66B8C /* PokemonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499BBA8277A79A200A66B8C /* PokemonApp.swift */; };
 		A499BBAB277A79A200A66B8C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499BBAA277A79A200A66B8C /* ContentView.swift */; };
 		A499BBAD277A79A300A66B8C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A499BBAC277A79A300A66B8C /* Assets.xcassets */; };
@@ -55,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4683991277CC21700901389 /* Kingfisher in Frameworks */,
 				A4D768AD277B607C009F2DAE /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -194,6 +196,7 @@
 			name = Pokemon;
 			packageProductDependencies = (
 				A4D768AC277B607C009F2DAE /* Apollo */,
+				A4683990277CC21700901389 /* Kingfisher */,
 			);
 			productName = Pokemon;
 			productReference = A499BBA5277A79A200A66B8C /* Pokemon.app */;
@@ -225,6 +228,7 @@
 			mainGroup = A499BB9C277A79A200A66B8C;
 			packageReferences = (
 				A4D768AB277B607C009F2DAE /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				A468398F277CC21700901389 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = A499BBA6277A79A200A66B8C /* Products */;
 			projectDirPath = "";
@@ -495,6 +499,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		A468398F277CC21700901389 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		A4D768AB277B607C009F2DAE /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
@@ -506,6 +518,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A4683990277CC21700901389 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A468398F277CC21700901389 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		A4D768AC277B607C009F2DAE /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A4D768AB277B607C009F2DAE /* XCRemoteSwiftPackageReference "apollo-ios" */;

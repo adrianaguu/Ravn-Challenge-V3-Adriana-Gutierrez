@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import os.log
 
 enum Pokemons: Error {
     case idIsRequired
@@ -14,7 +15,13 @@ enum Pokemons: Error {
 
 final class PokemonListViewModel: ObservableObject {
     private var service = PokemonsListService.shared
-    @Published var pokemons: [Pokemon] = []
+    let encoder: JSONEncoder
+    let decoder: JSONDecoder
+    @Published var pokemons: [Pokemon] = [] {
+        didSet {
+            self.store()
+        }
+    }
     @Published var failureMessage: String?
     @Published var searchText = ""
 
@@ -36,21 +43,52 @@ final class PokemonListViewModel: ObservableObject {
         pokemonsSectioned.keys.sorted(by: <).map { String($0) }
     }
 
+    init(encoder: JSONEncoder = .init(), decoder: JSONDecoder = .init()) {
+        self.encoder = encoder
+        self.decoder = decoder
+    }
+
     func fetchPokemons() {
-        service.client.fetch(query: GetAllPokemonsQuery()) { [weak self] result in
-            switch result {
-            case .success(let graphQLResult):
-                guard let data = graphQLResult.data else { return }
-                self?.failureMessage = nil
-                let json = data.jsonObject
-                let serialized = try! JSONSerialization.data(withJSONObject: json, options: [])
-                let query = try! JSONDecoder().decode(Query.self, from: serialized)
-                DispatchQueue.main.async {
-                    self?.pokemons = query.allPokemon
+        do {
+            try restore()
+        } catch {
+            service.client.fetch(query: GetAllPokemonsQuery()) { [weak self] result in
+                switch result {
+                case .success(let graphQLResult):
+                    // Maping GraphQL response to custom type Pokemon
+                    guard let data = graphQLResult.data,
+                          let serialized = try? JSONSerialization.data(withJSONObject: data.jsonObject, options: []),
+                          let query = try? self?.decoder.decode(Query.self, from: serialized) else {
+                              self?.failureMessage = "Data couldn't be loaded correctly."
+                              return
+                          }
+
+                    self?.failureMessage = nil
+                    DispatchQueue.main.async {
+                        self?.pokemons = query.allPokemon
+                    }
+                case .failure(let error):
+                    self?.failureMessage = error.localizedDescription
                 }
-            case .failure(let error):
-                self?.failureMessage = error.localizedDescription
             }
+        }
+    }
+
+    private func restore() throws {
+        guard let url = K.PokemonsListStorage.path else { return }
+
+        let data = try Data(contentsOf: url)
+        pokemons = try decoder.decode([Pokemon].self, from: data)
+    }
+
+    private func store() {
+        guard let url = K.PokemonsListStorage.path else { return }
+
+        do {
+            let data: Data = try encoder.encode(pokemons)
+            try data.write(to: url)
+        } catch {
+            os_log("Error: %@", log: .default, type: .error, String(describing: error))
         }
     }
 }

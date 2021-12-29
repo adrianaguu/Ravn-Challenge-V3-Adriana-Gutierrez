@@ -21,9 +21,20 @@ struct PokemonList: View {
                     listOfPokemons
                 }
             }
-            .navigationTitle("Pokemon List")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Text("Pokemon List")
+                        .font(.largeTitle)
+                        .bold()
+                        .padding(.vertical, 14)
+                }
+            }
         }
-        .searchable(text: $viewModel.searchText)
+        .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
+        .onAppear() {
+            UINavigationBar.appearance().backgroundColor = UIColor(.cellBackground)
+        }
     }
 
     private var listOfPokemons: some View {
