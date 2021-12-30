@@ -38,6 +38,7 @@ struct PokemonCell: View {
 
             Text("#" + String(format: "%03d", pokemon.id))
         }
+        .padding(.leading, K.PokemonCell.spaceBetweenSpriteAndText)
     }
 
     private var sprite: some View {

@@ -11,16 +11,19 @@ import Kingfisher
 @available(iOS 15.0, *)
 struct PokemonDetail: View {
     let pokemon: Pokemon
+    @State private var activeSprite = PokemonSprites.defaultFront
 
     var body: some View {
         ZStack {
-            Color.red
+            Color.green
 
             VStack(spacing: .zero) {
                 header
                     .padding(.bottom, 8)
 
                 bodyDescription
+
+                CustomDivider()
 
                 evolutions
             }
@@ -31,17 +34,14 @@ struct PokemonDetail: View {
 
     private var header: some View {
         VStack {
-            ResizableAsyncImage(url: pokemon.defaultFrontalSprite, width: 159, height: 159)
+            ResizableAsyncImage(url: activeSprite.getFrom(pokemon: pokemon), width: 159, height: 159)
 
-            HStack(spacing: .zero) {
-                Button("Default Sprite") {
-
-                }
-
-                Button("Shiny Sprite") {
-
-                }
+            Picker("What is your favorite color?", selection: $activeSprite) {
+                Text("Default Sprite").tag(PokemonSprites.defaultFront)
+                Text("Shiny Sprite").tag(PokemonSprites.shinyFront)
             }
+            .pickerStyle(.segmented)
+            .padding(.horizontal, 16)
         }
     }
 
@@ -67,8 +67,13 @@ struct PokemonDetail: View {
     }
 
     private var evolutions: some View {
-        VStack {
+        ZStack {
             Color.systemBackground
+
+            VStack {
+                Text("Evolutions")
+                    .font(.title3)
+            }
         }
     }
 }

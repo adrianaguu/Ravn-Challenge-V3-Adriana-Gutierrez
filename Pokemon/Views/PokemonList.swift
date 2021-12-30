@@ -28,11 +28,15 @@ struct PokemonList: View {
             ZStack {
                 Color.systemBackground
 
-                if viewModel.pokemons.isEmpty {
-                    ProgressView()
-                        .onAppear(perform: viewModel.fetchPokemons)
-                } else {
-                    listOfPokemons
+                VStack(spacing: .zero) {
+                    CustomDivider()
+
+                    if viewModel.pokemons.isEmpty {
+                        ProgressView()
+                            .onAppear(perform: viewModel.fetchPokemons)
+                    } else {
+                        listOfPokemons
+                    }
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
@@ -78,7 +82,7 @@ struct PokemonList: View {
                 .font(.title3)
                 .padding(.top, K.PokemonList.sectionHeaderPadding)
 
-            Divider()
+            CustomDivider()
         }
         .listRowSeparator(.hidden)
     }

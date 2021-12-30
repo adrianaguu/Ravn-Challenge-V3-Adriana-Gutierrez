@@ -20,6 +20,7 @@ enum K {
         static let spriteWidth = 72.0
         static let spriteHeight = 72.0
         static let spriteSetOffX = -46.0
+        static let spaceBetweenSpriteAndText = 8.0
     }
 
     enum PokemonList {

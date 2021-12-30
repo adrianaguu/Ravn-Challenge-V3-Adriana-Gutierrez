@@ -10,5 +10,8 @@ import SwiftUI
 
 extension Color {
     static let cellBackground = Color("CellBackground")
+    static let dividerColor = Color("DividerColor")
+    static let segmentedControlActive = Color("SegmentedControlActive")
+    static let segmentedControlsBackground = Color("SegmentedControlsBackground")
     static let systemBackground = Color(UIColor.systemBackground)
 }
