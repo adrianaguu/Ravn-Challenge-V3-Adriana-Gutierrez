@@ -30,7 +30,7 @@ final class PokemonListViewModel: ObservableObject {
             return pokemons
         } else {
             return pokemons.filter {
-                return $0.name.starts(with: searchText.lowercased())
+                return $0.name.starts(with: searchText)
             }
         }
     }

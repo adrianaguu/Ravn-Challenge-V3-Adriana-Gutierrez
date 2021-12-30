@@ -10,4 +10,5 @@ import SwiftUI
 
 extension Color {
     static let cellBackground = Color("CellBackground")
+    static let systemBackground = Color(UIColor.systemBackground)
 }

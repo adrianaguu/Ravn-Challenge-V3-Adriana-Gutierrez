@@ -13,7 +13,7 @@ struct Query: Codable {
 
 struct Pokemon: Codable, Identifiable {
     let id: Int
-    let name: String
+    private(set) var name: String
     let defaultFrontalSprite: URL?
     let shinyFrontalSprite: URL?
     let types: [PokemonType]
@@ -45,6 +45,7 @@ struct Pokemon: Codable, Identifiable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
         name = try values.decode(String.self, forKey: .name)
+        name = name.capitalized
         generation = try values.decode(String.self, forKey: .generation)
         types = try values.decode([PokemonType].self, forKey: .types)
 

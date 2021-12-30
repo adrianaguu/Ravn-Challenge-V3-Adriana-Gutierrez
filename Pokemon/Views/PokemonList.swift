@@ -26,28 +26,24 @@ struct PokemonList: View {
     private var navigationView: some View {
         NavigationView {
             ZStack {
-                Color.cellBackground
-                    .ignoresSafeArea(.all, edges: .top)
+                Color.systemBackground
 
-                ZStack {
-                    Color(UIColor.systemBackground)
-
-                    if viewModel.pokemons.isEmpty {
-                        ProgressView()
-                            .onAppear(perform: viewModel.fetchPokemons)
-                    } else {
-                        listOfPokemons
-                    }
-                }
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Text("Pokemon List")
-                            .font(.largeTitle)
-                            .bold()
-                    }
+                if viewModel.pokemons.isEmpty {
+                    ProgressView()
+                        .onAppear(perform: viewModel.fetchPokemons)
+                } else {
+                    listOfPokemons
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Text("Pokemon List")
+                        .font(.largeTitle)
+                        .bold()
+                }
+            }
+            .background(Color.cellBackground, ignoresSafeAreaEdges: .top)
         }
         .onAppear() {
             UINavigationBar.appearance().backgroundColor = UIColor(.cellBackground)
@@ -57,20 +53,13 @@ struct PokemonList: View {
     private var listOfPokemons: some View {
         List {
             ForEach(viewModel.generations) { generation in
-                VStack(alignment: .leading, spacing: .zero) {
-                    Text(generation)
-                        .font(.title3)
-                        .padding(.top, K.PokemonList.sectionHeaderPadding)
-
-                    Divider()
-                }
-                .listRowSeparator(.hidden)
+                sectionHeader(title: generation)
 
                 ForEach(viewModel.pokemonsSectioned[generation]!) { pokemon in
                     ZStack {
                         PokemonCell(pokemon: pokemon)
 
-                        NavigationLink(destination: PokemonDetail()) {
+                        NavigationLink(destination: PokemonDetail(pokemon: pokemon)) {
                             EmptyView()
                         }
                         .opacity(.zero)
@@ -81,6 +70,17 @@ struct PokemonList: View {
             }
         }
         .listStyle(.plain)
+    }
+
+    private func sectionHeader(title: String) -> some View {
+        VStack(alignment: .leading, spacing: .zero) {
+            Text(title)
+                .font(.title3)
+                .padding(.top, K.PokemonList.sectionHeaderPadding)
+
+            Divider()
+        }
+        .listRowSeparator(.hidden)
     }
 }
 
