@@ -12,32 +12,42 @@ struct PokemonList: View {
     @StateObject var viewModel = PokemonListViewModel()
 
     var body: some View {
+        navigationView
+            .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
+            .alert(item: $viewModel.failureMessage) { failureMessage in
+                Alert(
+                    title: Text("There was an Error"),
+                    message: Text(failureMessage),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
+    }
+
+    private var navigationView: some View {
         NavigationView {
-            VStack {
-                if viewModel.pokemons.isEmpty {
-                    ProgressView()
-                        .onAppear(perform: viewModel.fetchPokemons)
-                } else {
-                    listOfPokemons
+            ZStack {
+                Color.cellBackground
+                    .ignoresSafeArea(.all, edges: .top)
+
+                ZStack {
+                    Color(UIColor.systemBackground)
+
+                    if viewModel.pokemons.isEmpty {
+                        ProgressView()
+                            .onAppear(perform: viewModel.fetchPokemons)
+                    } else {
+                        listOfPokemons
+                    }
+                }
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Text("Pokemon List")
+                            .font(.largeTitle)
+                            .bold()
+                    }
                 }
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Text("Pokemon List")
-                        .font(.largeTitle)
-                        .bold()
-                        .padding(.vertical, 14)
-                }
-            }
-        }
-        .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
-        .alert(item: $viewModel.failureMessage) { failureMessage in
-            Alert(
-                title: Text("There was an Error"),
-                message: Text(failureMessage),
-                dismissButton: .default(Text("OK"))
-            )
         }
         .onAppear() {
             UINavigationBar.appearance().backgroundColor = UIColor(.cellBackground)
@@ -50,6 +60,7 @@ struct PokemonList: View {
                 VStack(alignment: .leading, spacing: .zero) {
                     Text(generation)
                         .font(.title3)
+                        .padding(.top, K.PokemonList.sectionHeaderPadding)
 
                     Divider()
                 }

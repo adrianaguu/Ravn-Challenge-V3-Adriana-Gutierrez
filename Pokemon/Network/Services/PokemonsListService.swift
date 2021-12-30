@@ -8,7 +8,7 @@
 import Foundation
 import Apollo
 
-struct PokemonsListService {
+final class PokemonsListService {
     static let shared = PokemonsListService()
     private init() {}
 

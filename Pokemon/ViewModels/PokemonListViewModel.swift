@@ -14,9 +14,9 @@ enum Pokemons: Error {
 }
 
 final class PokemonListViewModel: ObservableObject {
-    private var service = PokemonsListService.shared
-    let encoder: JSONEncoder
-    let decoder: JSONDecoder
+    private var service: PokemonsListService
+    private let encoder: JSONEncoder
+    private let decoder: JSONDecoder
     @Published var pokemons: [Pokemon] = [] {
         didSet {
             self.store()
@@ -43,7 +43,8 @@ final class PokemonListViewModel: ObservableObject {
         pokemonsSectioned.keys.sorted(by: <).map { String($0) }
     }
 
-    init(encoder: JSONEncoder = .init(), decoder: JSONDecoder = .init()) {
+    init(service: PokemonsListService = PokemonsListService.shared, encoder: JSONEncoder = .init(), decoder: JSONDecoder = .init()) {
+        self.service = service
         self.encoder = encoder
         self.decoder = decoder
     }

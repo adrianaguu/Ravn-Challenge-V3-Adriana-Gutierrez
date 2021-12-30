@@ -22,6 +22,10 @@ enum K {
         static let spriteSetOffX = -46.0
     }
 
+    enum PokemonList {
+        static let sectionHeaderPadding = 16.0
+    }
+
     enum PokemonsListStorage {
         static let fileName = "pokemons"
         static var path: URL? {
