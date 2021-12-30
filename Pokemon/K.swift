@@ -10,7 +10,8 @@ import Foundation
 // swiftlint:disable:next type_name
 enum K {
     enum Network {
-        static let allPokemonsEndPoint = "https://dex-server.herokuapp.com/"
+        static let pokemonsListURL = "https://dex-server.herokuapp.com/"
+        static let pokemonDetailEndPointBase = "https://pokeapi.co/api/v2/pokemon-species/"
     }
 
     enum PokemonCell {

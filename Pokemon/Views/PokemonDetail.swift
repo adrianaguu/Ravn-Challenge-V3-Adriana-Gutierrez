@@ -10,12 +10,11 @@ import Kingfisher
 
 @available(iOS 15.0, *)
 struct PokemonDetail: View {
-    let pokemon: Pokemon
-    @State private var activeSprite = PokemonSprites.defaultFront
+    @StateObject var viewModel: PokemonDetailViewModel
 
     var body: some View {
         ZStack {
-            Color.green
+            viewModel.pokemon.color?.value
 
             VStack(spacing: .zero) {
                 header
@@ -28,15 +27,18 @@ struct PokemonDetail: View {
                 evolutions
             }
         }
+        .onAppear {
+            viewModel.fetchDetails(of: viewModel.pokemon)
+        }
         .navigationTitle("Pokemon Info")
         .background(Color.cellBackground, ignoresSafeAreaEdges: .top)
     }
 
     private var header: some View {
         VStack {
-            ResizableAsyncImage(url: activeSprite.getFrom(pokemon: pokemon), width: 159, height: 159)
+            ResizableAsyncImage(url: viewModel.activeSprite.getFrom(pokemon: viewModel.pokemon), width: 159, height: 159)
 
-            Picker("What is your favorite color?", selection: $activeSprite) {
+            Picker("Active Sprite", selection: $viewModel.activeSprite) {
                 Text("Default Sprite").tag(PokemonSprites.defaultFront)
                 Text("Shiny Sprite").tag(PokemonSprites.shinyFront)
             }
@@ -51,14 +53,14 @@ struct PokemonDetail: View {
                 .cornerRadius(40, corners: [.topLeft, .topRight])
 
             VStack {
-                let title = "#" + String(format: "%03d", pokemon.id) + " " + pokemon.name
+                let title = "#" + String(format: "%03d", viewModel.pokemon.id) + " " + viewModel.pokemon.name
                 Text(title)
                     .font(.title)
 
-                Text(pokemon.generation)
+                Text(viewModel.pokemon.generation)
 
                 HStack {
-                    ForEach(pokemon.types, id: \.self.name ) { type in
+                    ForEach(viewModel.pokemon.types, id: \.self.name ) { type in
                         Image("Tags/\(type.name)")
                     }
                 }
@@ -81,6 +83,6 @@ struct PokemonDetail: View {
 @available(iOS 15.0, *)
 struct PokemonDetail_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonDetail(pokemon: Pokemon.bulbasaur)
+        PokemonDetail(viewModel: PokemonDetailViewModel(pokemon: Pokemon.bulbasaur))
     }
 }

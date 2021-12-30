@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct Query: Codable {
-    var allPokemon: [Pokemon]
-}
-
 struct Pokemon: Codable, Identifiable {
     let id: Int
     private(set) var name: String
@@ -18,6 +14,13 @@ struct Pokemon: Codable, Identifiable {
     let shinyFrontalSprite: URL?
     let types: [PokemonType]
     let generation: String
+
+    // Detail information
+    var color: PokemonColor?
+    var evolvesTo: [Pokemon]?
+    var flavorTextEnglish: String?
+    var flavorTextSpanish: String?
+    var isLegendary: Bool?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -32,13 +35,30 @@ struct Pokemon: Codable, Identifiable {
         case shinyFrontalSprite = "front_shiny"
     }
 
-    init(id: Int, name: String, defaultFrontalSprite: URL?, shinyFrontalSprite: URL?, types: [PokemonType], generation: String) {
+    init(
+        id: Int,
+        name: String,
+        defaultFrontalSprite: URL?,
+        shinyFrontalSprite: URL?,
+        types: [PokemonType],
+        generation: String,
+        color: PokemonColor? = nil,
+        evolvesTo: [Pokemon]? = nil,
+        flavorTextEnglish: String? = nil,
+        flavorTextSpanish: String? = nil,
+        isLegendary: Bool? = nil
+    ) {
         self.id = id
         self.name = name
         self.defaultFrontalSprite = defaultFrontalSprite
         self.shinyFrontalSprite = shinyFrontalSprite
         self.types = types
         self.generation = generation
+        self.color = color
+        self.evolvesTo = evolvesTo
+        self.flavorTextSpanish = flavorTextSpanish
+        self.flavorTextEnglish = flavorTextEnglish
+        self.isLegendary = isLegendary
     }
 
     init(from decoder: Decoder) throws {
@@ -65,8 +85,4 @@ struct Pokemon: Codable, Identifiable {
         try sprites.encode(defaultFrontalSprite, forKey: .defaultFrontalSprite)
         try sprites.encode(shinyFrontalSprite, forKey: .shinyFrontalSprite)
     }
-}
-
-struct PokemonType: Codable {
-    let name: String
 }

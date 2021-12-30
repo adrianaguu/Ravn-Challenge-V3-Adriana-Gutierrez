@@ -9,7 +9,7 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 struct PokemonList: View {
-    @StateObject var viewModel = PokemonListViewModel()
+    @ObservedObject var viewModel: PokemonListViewModel
 
     var body: some View {
         navigationView
@@ -63,7 +63,7 @@ struct PokemonList: View {
                     ZStack {
                         PokemonCell(pokemon: pokemon)
 
-                        NavigationLink(destination: PokemonDetail(pokemon: pokemon)) {
+                        NavigationLink(destination: PokemonDetail(viewModel: PokemonDetailViewModel(pokemon: pokemon))) {
                             EmptyView()
                         }
                         .opacity(.zero)
@@ -91,6 +91,6 @@ struct PokemonList: View {
 @available(iOS 15.0, *)
 struct PokemonList_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonList()
+        PokemonList(viewModel: .init())
     }
 }

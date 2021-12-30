@@ -9,12 +9,8 @@ import Foundation
 import SwiftUI
 import os.log
 
-enum Pokemons: Error {
-    case idIsRequired
-}
-
 final class PokemonListViewModel: ObservableObject {
-    private var service: PokemonsListService
+    private var service: Network
     private let encoder: JSONEncoder
     private let decoder: JSONDecoder
     @Published var pokemons: [Pokemon] = [] {
@@ -43,7 +39,7 @@ final class PokemonListViewModel: ObservableObject {
         pokemonsSectioned.keys.sorted(by: <).map { String($0) }
     }
 
-    init(service: PokemonsListService = PokemonsListService.shared, encoder: JSONEncoder = .init(), decoder: JSONDecoder = .init()) {
+    init(service: Network = Network.shared, encoder: JSONEncoder = .init(), decoder: JSONDecoder = .init()) {
         self.service = service
         self.encoder = encoder
         self.decoder = decoder
@@ -59,7 +55,7 @@ final class PokemonListViewModel: ObservableObject {
                     // Maping GraphQL response to custom type Pokemon
                     guard let data = graphQLResult.data,
                           let serialized = try? JSONSerialization.data(withJSONObject: data.jsonObject, options: []),
-                          let query = try? self?.decoder.decode(Query.self, from: serialized) else {
+                          let query = try? self?.decoder.decode(AllPokemonQueryResponse.self, from: serialized) else {
                               self?.failureMessage = "Data couldn't be loaded correctly."
                               return
                           }
