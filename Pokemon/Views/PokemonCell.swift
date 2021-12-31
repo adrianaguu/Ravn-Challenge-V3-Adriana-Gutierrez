@@ -14,7 +14,7 @@ struct PokemonCell: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: K.PokemonCell.rectangleConerRadius)
-                .foregroundColor(.cellBackground)
+                .foregroundColor(.customBackground)
 
             HStack(spacing: .zero) {
                 sprite
@@ -36,7 +36,7 @@ struct PokemonCell: View {
                 .font(.body)
                 .fontWeight(.semibold)
 
-            Text(pokemon.formatedId)
+            Text(pokemon.formattedId)
         }
         .padding(.leading, K.PokemonCell.spaceBetweenSpriteAndText)
     }

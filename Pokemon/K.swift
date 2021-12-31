@@ -32,7 +32,28 @@ enum K {
     }
 
     enum PokemonList {
+        static let navBarTitle = "Pokemon List"
         static let sectionHeaderPadding = 16.0
+    }
+
+    enum PokemonDetail {
+        static let navBarTitle = "Pokemon Info"
+        static let headerBottomPadding = 8.0
+        static let controlSegmentsPadding = 16.0
+        static let legendaryIconWidth = 36.0
+        static let legendaryIconHeight = 36.0
+        static let legendaryIconPadding = 16.0
+        static let pokemonSpriteWidth = 160.0
+        static let pokemonSpriteHeight = 160.0
+        static let descriptionBackgroundCornerRadius = 40.0
+        static let descriptionVerticalPadding = 16.0
+        static let generationTextBottomPadding = 8.0
+        static let evolutionsTopPadding = 16.0
+        static let evolutionCellSpacing = 24.0
+        static let evolutionCellItemSpriteWidth = 64.0
+        static let evolutionCellItemSpriteHeight = 64.0
+        static let evolutionCellItemCircleWidth = 80.0
+        static let evolutionCellItemCircleHeight = 80.0
     }
 
     enum PokemonsListStorage {

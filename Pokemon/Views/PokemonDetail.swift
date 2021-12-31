@@ -18,7 +18,7 @@ struct PokemonDetail: View {
 
             VStack(spacing: .zero) {
                 header
-                    .padding(.bottom, 8)
+                    .padding(.bottom, K.PokemonDetail.headerBottomPadding)
 
                 bodyDescription
 
@@ -36,8 +36,8 @@ struct PokemonDetail: View {
         .onAppear {
             viewModel.fetchDetails(of: viewModel.pokemon)
         }
-        .navigationTitle("Pokemon Info")
-        .background(Color.cellBackground, ignoresSafeAreaEdges: .top)
+        .navigationTitle(K.PokemonDetail.navBarTitle)
+        .background(Color.customBackground, ignoresSafeAreaEdges: .top)
     }
 
     private var legendaryIcon: some View {
@@ -46,19 +46,19 @@ struct PokemonDetail: View {
                 Spacer()
 
                 Image("Legendary icon")
-                    .frame(width: 36, height: 36)
+                    .frame(width: K.PokemonDetail.legendaryIconWidth, height: K.PokemonDetail.legendaryIconHeight)
             }
             Spacer()
         }
-        .padding([.top, .trailing], 16)
+        .padding([.top, .trailing], K.PokemonDetail.legendaryIconPadding)
     }
 
     private var header: some View {
         VStack {
             ResizableAsyncImage(
                 url: viewModel.activeSprite.getFrom(pokemon: viewModel.pokemon),
-                width: 159,
-                height: 159
+                width: K.PokemonDetail.pokemonSpriteWidth,
+                height: K.PokemonDetail.pokemonSpriteHeight
             )
 
             Picker("Active Sprite", selection: $viewModel.activeSprite) {
@@ -66,17 +66,17 @@ struct PokemonDetail: View {
                 Text("Shiny Sprite").tag(PokemonSprites.shinyFront)
             }
             .pickerStyle(.segmented)
-            .padding(.horizontal, 16)
+            .padding(.horizontal, K.PokemonDetail.controlSegmentsPadding)
         }
     }
 
     private var bodyDescription: some View {
         ZStack {
             Color.systemBackground
-                .cornerRadius(40, corners: [.topLeft, .topRight])
+                .cornerRadius(K.PokemonDetail.descriptionBackgroundCornerRadius, corners: [.topLeft, .topRight])
 
             VStack {
-                Text(viewModel.pokemon.formatedId + " " + viewModel.pokemon.name )
+                Text(viewModel.pokemon.formattedId + " " + viewModel.pokemon.name )
                     .font(.title)
 
                 HStack {
@@ -87,7 +87,7 @@ struct PokemonDetail: View {
 
                 Text(viewModel.pokemon.generation)
                     .font(.body)
-                    .padding(.bottom, 8)
+                    .padding(.bottom, K.PokemonDetail.generationTextBottomPadding)
 
                 Text(viewModel.pokemon.flavorTextEnglish ?? "")
                     .multilineTextAlignment(.center)
@@ -96,7 +96,7 @@ struct PokemonDetail: View {
 
                 Spacer()
             }
-            .padding(.vertical, 16)
+            .padding(.vertical, K.PokemonDetail.descriptionVerticalPadding)
         }
     }
 
@@ -114,13 +114,13 @@ struct PokemonDetail: View {
 
                     Spacer()
                 }
-                .padding(.top, 16)
+                .padding(.top, K.PokemonDetail.evolutionsTopPadding)
             }
         }
     }
 
     private func evolutionCell(evolutionPokemon: Pokemon) -> some View {
-        HStack(spacing: 24) {
+        HStack(spacing: K.PokemonDetail.evolutionCellSpacing) {
             Spacer()
 
             evolutionCellItem(pokemon: viewModel.pokemon)
@@ -137,15 +137,22 @@ struct PokemonDetail: View {
 
     private func evolutionCellItem(pokemon: Pokemon) -> some View {
         VStack {
-            ResizableAsyncImage(url: pokemon.defaultFrontalSprite, width: 64, height: 64)
-                .circleBackground(color: .cellBackground)
-                .frame(width: 80, height: 80)
+            ResizableAsyncImage(
+                url: pokemon.defaultFrontalSprite,
+                width: K.PokemonDetail.evolutionCellItemSpriteWidth,
+                height: K.PokemonDetail.evolutionCellItemSpriteHeight
+            )
+            .circleBackground(color: .customBackground)
+            .frame(
+                width: K.PokemonDetail.evolutionCellItemCircleWidth,
+                height: K.PokemonDetail.evolutionCellItemCircleHeight
+            )
 
             Group {
                 Text(pokemon.name)
                     .fontWeight(.semibold)
 
-                Text(pokemon.formatedId)
+                Text(pokemon.formattedId)
             }
             .font(.body)
         }

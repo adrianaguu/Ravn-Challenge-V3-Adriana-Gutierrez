@@ -15,21 +15,18 @@ enum NetworkError: Error {
     var userMessageTitle: String {
         switch self {
         case .invalidURL, .failedToLoadData:
-            return "There was an Error"
+            return K.NetworkError.failedToLoadDataTitle
         case .connectivityIssue:
-            return "Connectivity Issue"
+            return K.NetworkError.connectivityIssueTitle
         }
     }
 
     var userMessageDescription: String {
         switch self {
         case .invalidURL, .failedToLoadData:
-            return "Failed to Load Data"
+            return K.NetworkError.failedToLoadDataDescription
         case .connectivityIssue:
-            return """
-            There is a problem trying to connect.
-            Please check your connectivity
-            """
+            return K.NetworkError.connectivityIssueDescription
         }
     }
 }

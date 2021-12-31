@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 extension Color {
-    static let cellBackground = Color("CellBackground")
+    static let customBackground = Color("CustomBackground")
     static let dividerColor = Color("DividerColor")
     static let arrowColor = Color("ArrowColor")
     static let systemBackground = Color(UIColor.systemBackground)

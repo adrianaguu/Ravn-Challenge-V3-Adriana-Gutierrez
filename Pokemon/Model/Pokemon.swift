@@ -62,10 +62,6 @@ struct Pokemon: Codable, Identifiable {
         case shinyFrontalSprite = "front_shiny"
     }
 
-    enum EvolvesTo: String, CodingKey {
-        case id
-    }
-
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
@@ -96,7 +92,7 @@ struct Pokemon: Codable, Identifiable {
 }
 
 extension Pokemon {
-    var formatedId: String {
+    var formattedId: String {
         "#" + String(format: "%03d", id)
     }
 }

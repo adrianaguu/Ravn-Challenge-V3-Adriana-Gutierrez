@@ -46,15 +46,15 @@ struct PokemonList: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Text("Pokemon List")
+                    Text(K.PokemonList.navBarTitle)
                         .font(.largeTitle)
                         .bold()
                 }
             }
-            .background(Color.cellBackground, ignoresSafeAreaEdges: .top)
+            .background(Color.customBackground, ignoresSafeAreaEdges: .top)
         }
         .onAppear {
-            UINavigationBar.appearance().backgroundColor = UIColor(.cellBackground)
+            UINavigationBar.appearance().backgroundColor = UIColor(.customBackground)
         }
     }
 
