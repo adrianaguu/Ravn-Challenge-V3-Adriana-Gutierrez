@@ -17,7 +17,7 @@ struct Pokemon: Codable, Identifiable {
 
     // Detail information
     var color: PokemonColor?
-    var evolvesTo: [EvolveTo]?
+    var evolvesTo: [PokemonEvolution]?
     var flavorTextEnglish: String?
     var flavorTextSpanish: String?
     var isLegendary: Bool?
@@ -30,7 +30,7 @@ struct Pokemon: Codable, Identifiable {
         types: [PokemonType],
         generation: String,
         color: PokemonColor? = nil,
-        evolvesTo: [EvolveTo]? = nil,
+        evolvesTo: [PokemonEvolution]? = nil,
         flavorTextEnglish: String? = nil,
         flavorTextSpanish: String? = nil,
         isLegendary: Bool? = nil
@@ -73,7 +73,7 @@ struct Pokemon: Codable, Identifiable {
         name = name.capitalized
         generation = try values.decode(String.self, forKey: .generation)
         types = try values.decode([PokemonType].self, forKey: .types)
-        evolvesTo = try values.decode([EvolveTo]?.self, forKey: .evolvesTo)
+        evolvesTo = try values.decode([PokemonEvolution]?.self, forKey: .evolvesTo)
 
 
         let sprites = try values.nestedContainer(keyedBy: SpritesCodingKeys.self, forKey: .sprites)
@@ -92,5 +92,11 @@ struct Pokemon: Codable, Identifiable {
         var sprites = container.nestedContainer(keyedBy: SpritesCodingKeys.self, forKey: .sprites)
         try sprites.encode(defaultFrontalSprite, forKey: .defaultFrontalSprite)
         try sprites.encode(shinyFrontalSprite, forKey: .shinyFrontalSprite)
+    }
+}
+
+extension Pokemon {
+    var formatedId: String {
+        "#" + String(format: "%03d", id)
     }
 }

@@ -12,15 +12,19 @@ final class PokemonDetailViewModel: ObservableObject {
     @Published var pokemon: Pokemon
     @Published var failureMessage: String?
     @Published var activeSprite = PokemonSprites.defaultFront
-    @Published var evolvesTo: [Pokemon]?
+    @Published var evolutions: [Pokemon]?
 
     private var cancellable: AnyCancellable?
     private let service: PokemonDetailService
 
+    var pokemonHasEvolutions: Bool {
+        evolutions != nil
+    }
+
     init(pokemon: Pokemon, getEvolvesTo: (Pokemon) -> [Pokemon]?, service: PokemonDetailService = .init()) {
         self.service = service
         self.pokemon = pokemon
-        self.evolvesTo = getEvolvesTo(pokemon)
+        self.evolutions = getEvolvesTo(pokemon)
     }
 
     private func setPokemonDetails(from response: PokemonDetailsResponse) {

@@ -36,7 +36,7 @@ struct PokemonCell: View {
                 .font(.body)
                 .fontWeight(.semibold)
 
-            Text("#" + String(format: "%03d", pokemon.id))
+            Text(pokemon.formatedId)
         }
         .padding(.leading, K.PokemonCell.spaceBetweenSpriteAndText)
     }

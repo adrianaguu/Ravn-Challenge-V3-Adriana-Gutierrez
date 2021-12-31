@@ -22,16 +22,11 @@ struct PokemonDetailsResponse: Codable {
         let version: Version
     }
 
-    struct EvolutionChain: Codable {
-        let url: URL
-    }
-
     struct Color: Codable {
         let name: String
     }
 
     let color: Color
     let flavorTextEntries: [FlavorText]
-    let evolutionChain: EvolutionChain
     let isLegendary: Bool
 }

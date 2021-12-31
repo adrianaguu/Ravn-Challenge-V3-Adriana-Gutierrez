@@ -16,6 +16,7 @@ extension Pokemon {
         types: [PokemonType(name: "Grass"), PokemonType(name: "Poison")],
         generation: "Generation I",
         color: .green,
+        evolvesTo: [PokemonEvolution(id: 2)],
         flavorTextEnglish: "A strange seed was planted on its back at birth.\nThe plant sprouts and grows with this Pokémon.",
         flavorTextSpanish: "Una rara semilla le fue plantada en el lomo al nacer.\nLa planta brota y crece con este Pokémon.",
         isLegendary: false

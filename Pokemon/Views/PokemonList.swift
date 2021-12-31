@@ -32,8 +32,12 @@ struct PokemonList: View {
                     CustomDivider()
 
                     if viewModel.pokemons.isEmpty {
+                        Spacer()
+
                         ProgressView()
                             .onAppear(perform: viewModel.fetchPokemons)
+
+                        Spacer()
                     } else {
                         listOfPokemons
                     }

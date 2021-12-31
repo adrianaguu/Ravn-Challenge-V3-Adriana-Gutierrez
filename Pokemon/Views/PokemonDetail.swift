@@ -22,7 +22,7 @@ struct PokemonDetail: View {
 
                 bodyDescription
 
-                if (viewModel.evolvesTo != nil) {
+                if (viewModel.pokemonHasEvolutions) {
                     CustomDivider()
 
                     evolutions
@@ -72,8 +72,7 @@ struct PokemonDetail: View {
                 .cornerRadius(40, corners: [.topLeft, .topRight])
 
             VStack() {
-                let title = "#" + String(format: "%03d", viewModel.pokemon.id) + " " + viewModel.pokemon.name
-                Text(title)
+                Text(viewModel.pokemon.formatedId + " " + viewModel.pokemon.name )
                     .font(.title)
 
                 HStack {
@@ -100,12 +99,53 @@ struct PokemonDetail: View {
     private var evolutions: some View {
         ZStack {
             Color.systemBackground
+            ScrollView {
+                VStack {
+                    Text("Evolutions")
+                        .font(.title3)
 
-            VStack {
-                Text("Evolutions")
-                    .font(.title3)
 
+                    ForEach(viewModel.evolutions!) { evolutionPokemon in
+                        evolutionCell(evolutionPokemon: evolutionPokemon)
+                    }
+
+
+                    Spacer()
+                }
+                .padding(.top, 16)
             }
+        }
+    }
+
+    private func evolutionCell(evolutionPokemon: Pokemon) -> some View {
+        HStack(spacing: 24) {
+            Spacer()
+
+            evolutionCellItem(pokemon: viewModel.pokemon)
+
+            Image(systemName: "arrow.right")
+                .font(.title2)
+                .foregroundColor(.arrowColor)
+
+            evolutionCellItem(pokemon: evolutionPokemon)
+
+            Spacer()
+        }
+    }
+
+    private func evolutionCellItem(pokemon: Pokemon) -> some View {
+        VStack {
+            ResizableAsyncImage(url: pokemon.defaultFrontalSprite, width: 64, height: 64)
+                .circleBackground(color: .cellBackground)
+                .frame(width: 80, height: 80)
+
+            Group {
+                Text(pokemon.name)
+                    .fontWeight(.semibold)
+
+                Text(pokemon.formatedId)
+            }
+            .font(.body)
         }
     }
 }
