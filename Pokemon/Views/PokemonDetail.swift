@@ -6,15 +6,165 @@
 //
 
 import SwiftUI
+import Kingfisher
 
+@available(iOS 15.0, *)
 struct PokemonDetail: View {
+    @StateObject var viewModel: PokemonDetailViewModel
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            viewModel.pokemon.color?.value
+
+            VStack(spacing: .zero) {
+                header
+                    .padding(.bottom, K.PokemonDetail.headerBottomPadding)
+
+                bodyDescription
+
+                if viewModel.pokemonHasEvolutions {
+                    CustomDivider()
+
+                    evolutions
+                        .layoutPriority(1)
+                }
+            }
+
+            legendaryIcon
+                .opacity(viewModel.pokemon.isLegendary ?? false ? 1 : 0)
+        }
+        .onAppear {
+            viewModel.fetchDetails(of: viewModel.pokemon)
+        }
+        .navigationTitle(K.PokemonDetail.navBarTitle)
+        .background(Color.customBackground, ignoresSafeAreaEdges: .top)
+    }
+
+    private var legendaryIcon: some View {
+        VStack {
+            HStack {
+                Spacer()
+
+                Image("Legendary icon")
+                    .frame(width: K.PokemonDetail.legendaryIconWidth, height: K.PokemonDetail.legendaryIconHeight)
+            }
+            Spacer()
+        }
+        .padding([.top, .trailing], K.PokemonDetail.legendaryIconPadding)
+    }
+
+    private var header: some View {
+        VStack {
+            ResizableAsyncImage(
+                url: viewModel.activeSprite.getFrom(pokemon: viewModel.pokemon),
+                width: K.PokemonDetail.pokemonSpriteWidth,
+                height: K.PokemonDetail.pokemonSpriteHeight
+            )
+
+            Picker("Active Sprite", selection: $viewModel.activeSprite) {
+                Text("Default Sprite").tag(PokemonSprites.defaultFront)
+                Text("Shiny Sprite").tag(PokemonSprites.shinyFront)
+            }
+            .pickerStyle(.segmented)
+            .padding(.horizontal, K.PokemonDetail.controlSegmentsPadding)
+        }
+    }
+
+    private var bodyDescription: some View {
+        ZStack {
+            Color.systemBackground
+                .cornerRadius(K.PokemonDetail.descriptionBackgroundCornerRadius, corners: [.topLeft, .topRight])
+
+            VStack {
+                Text(viewModel.pokemon.formattedId + " " + viewModel.pokemon.name )
+                    .font(.title)
+
+                HStack {
+                    ForEach(viewModel.pokemon.types, id: \.self.name ) { type in
+                        Image("Tags/\(type.name)")
+                    }
+                }
+
+                Text(viewModel.pokemon.generation)
+                    .font(.body)
+                    .padding(.bottom, K.PokemonDetail.generationTextBottomPadding)
+
+                Text(viewModel.pokemon.flavorTextEnglish ?? "")
+                    .multilineTextAlignment(.center)
+                    .font(.footnote)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                Spacer()
+            }
+            .padding(.vertical, K.PokemonDetail.descriptionVerticalPadding)
+        }
+    }
+
+    private var evolutions: some View {
+        ZStack {
+            Color.systemBackground
+            ScrollView {
+                VStack {
+                    Text("Evolutions")
+                        .font(.title3)
+
+                    ForEach(viewModel.evolutions ?? []) { evolutionPokemon in
+                        evolutionCell(evolutionPokemon: evolutionPokemon)
+                    }
+
+                    Spacer()
+                }
+                .padding(.top, K.PokemonDetail.evolutionsTopPadding)
+            }
+        }
+    }
+
+    private func evolutionCell(evolutionPokemon: Pokemon) -> some View {
+        HStack(spacing: K.PokemonDetail.evolutionCellSpacing) {
+            Spacer()
+
+            evolutionCellItem(pokemon: viewModel.pokemon)
+
+            Image(systemName: "arrow.right")
+                .font(.title2)
+                .foregroundColor(.arrowColor)
+
+            evolutionCellItem(pokemon: evolutionPokemon)
+
+            Spacer()
+        }
+    }
+
+    private func evolutionCellItem(pokemon: Pokemon) -> some View {
+        VStack {
+            ResizableAsyncImage(
+                url: pokemon.defaultFrontalSprite,
+                width: K.PokemonDetail.evolutionCellItemSpriteWidth,
+                height: K.PokemonDetail.evolutionCellItemSpriteHeight
+            )
+            .circleBackground(color: .customBackground)
+            .frame(
+                width: K.PokemonDetail.evolutionCellItemCircleWidth,
+                height: K.PokemonDetail.evolutionCellItemCircleHeight
+            )
+
+            Group {
+                Text(pokemon.name)
+                    .fontWeight(.semibold)
+
+                Text(pokemon.formattedId)
+            }
+            .font(.body)
+        }
     }
 }
 
+@available(iOS 15.0, *)
 struct PokemonDetail_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonDetail()
+        let getEvolvesTo = PokemonListViewModel().getEvolvesToOf
+        PokemonDetail(viewModel: PokemonDetailViewModel(pokemon: Pokemon.articuno, getEvolvesTo: getEvolvesTo))
+
+        PokemonDetail(viewModel: PokemonDetailViewModel(pokemon: Pokemon.bulbasaur, getEvolvesTo: getEvolvesTo))
     }
 }

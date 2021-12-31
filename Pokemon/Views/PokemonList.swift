@@ -9,7 +9,7 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 struct PokemonList: View {
-    @StateObject var viewModel = PokemonListViewModel()
+    @ObservedObject var viewModel: PokemonListViewModel
 
     var body: some View {
         navigationView
@@ -26,51 +26,55 @@ struct PokemonList: View {
     private var navigationView: some View {
         NavigationView {
             ZStack {
-                Color.cellBackground
-                    .ignoresSafeArea(.all, edges: .top)
+                Color.systemBackground
 
-                ZStack {
-                    Color(UIColor.systemBackground)
+                VStack(spacing: .zero) {
+                    CustomDivider()
 
                     if viewModel.pokemons.isEmpty {
+                        Spacer()
+
                         ProgressView()
                             .onAppear(perform: viewModel.fetchPokemons)
+
+                        Spacer()
                     } else {
                         listOfPokemons
                     }
                 }
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Text("Pokemon List")
-                            .font(.largeTitle)
-                            .bold()
-                    }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Text(K.PokemonList.navBarTitle)
+                        .font(.largeTitle)
+                        .bold()
                 }
             }
+            .background(Color.customBackground, ignoresSafeAreaEdges: .top)
         }
-        .onAppear() {
-            UINavigationBar.appearance().backgroundColor = UIColor(.cellBackground)
+        .onAppear {
+            UINavigationBar.appearance().backgroundColor = UIColor(.customBackground)
         }
     }
 
     private var listOfPokemons: some View {
         List {
             ForEach(viewModel.generations) { generation in
-                VStack(alignment: .leading, spacing: .zero) {
-                    Text(generation)
-                        .font(.title3)
-                        .padding(.top, K.PokemonList.sectionHeaderPadding)
+                sectionHeader(title: generation)
 
-                    Divider()
-                }
-                .listRowSeparator(.hidden)
-
-                ForEach(viewModel.pokemonsSectioned[generation]!) { pokemon in
+                ForEach(viewModel.pokemonsSectioned[generation] ?? []) { pokemon in
                     ZStack {
                         PokemonCell(pokemon: pokemon)
 
-                        NavigationLink(destination: PokemonDetail()) {
+                        NavigationLink {
+                            PokemonDetail(
+                                viewModel: PokemonDetailViewModel(
+                                    pokemon: pokemon,
+                                    getEvolvesTo: viewModel.getEvolvesToOf
+                                )
+                            )
+                        } label: {
                             EmptyView()
                         }
                         .opacity(.zero)
@@ -82,11 +86,22 @@ struct PokemonList: View {
         }
         .listStyle(.plain)
     }
+
+    private func sectionHeader(title: String) -> some View {
+        VStack(alignment: .leading, spacing: .zero) {
+            Text(title)
+                .font(.title3)
+                .padding(.top, K.PokemonList.sectionHeaderPadding)
+
+            CustomDivider()
+        }
+        .listRowSeparator(.hidden)
+    }
 }
 
 @available(iOS 15.0, *)
 struct PokemonList_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonList()
+        PokemonList(viewModel: .init())
     }
 }

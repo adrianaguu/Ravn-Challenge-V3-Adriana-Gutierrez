@@ -2,15 +2,26 @@
 //  PokemonsListService.swift
 //  Pokemon
 //
-//  Created by Adriana Gutierrez on 28/12/21.
+//  Created by Adriana Gutierrez on 30/12/21.
 //
 
 import Foundation
-import Apollo
+import Combine
 
-final class PokemonsListService {
-    static let shared = PokemonsListService()
-    private init() {}
+class PokemonsListService {
+    let decoder: JSONDecoder
+    let network: Network
 
-    lazy var client = ApolloClient(url: URL(string: K.Network.allPokemonsEndPoint)!)
+    init(decoder: JSONDecoder = JSONDecoder(), network: Network = .shared) {
+        self.decoder = decoder
+        self.network = network
+    }
+
+//    func getPokemonList() -> AnyPublisher<PokemonDetailsResponse, Error> {
+//        var error: PokemonsListError?
+//        var dataPublisher: AnyPublisher<PokemonDetailsResponse, Error>
+//        network.client.fetch(query: GetAllPokemonsQuery()) { [weak self] result in
+//            dataPublisher = Just(result).eraseToAnyPublisher()
+//        }
+//    }
 }

@@ -9,12 +9,8 @@ import Foundation
 import SwiftUI
 import os.log
 
-enum Pokemons: Error {
-    case idIsRequired
-}
-
 final class PokemonListViewModel: ObservableObject {
-    private var service: PokemonsListService
+    private var service: Network
     private let encoder: JSONEncoder
     private let decoder: JSONDecoder
     @Published var pokemons: [Pokemon] = [] {
@@ -30,20 +26,22 @@ final class PokemonListViewModel: ObservableObject {
             return pokemons
         } else {
             return pokemons.filter {
-                return $0.name.starts(with: searchText.lowercased())
+                return $0.name.starts(with: searchText)
             }
         }
     }
 
     var pokemonsSectioned: [String: [Pokemon]] {
-        Dictionary(grouping: searchResults, by: { $0.generation })
+        Dictionary(grouping: searchResults) {
+            $0.generation
+        }
     }
 
     var generations: [String] {
         pokemonsSectioned.keys.sorted(by: <).map { String($0) }
     }
 
-    init(service: PokemonsListService = PokemonsListService.shared, encoder: JSONEncoder = .init(), decoder: JSONDecoder = .init()) {
+    init(service: Network = Network.shared, encoder: JSONEncoder = .init(), decoder: JSONDecoder = .init()) {
         self.service = service
         self.encoder = encoder
         self.decoder = decoder
@@ -59,7 +57,7 @@ final class PokemonListViewModel: ObservableObject {
                     // Maping GraphQL response to custom type Pokemon
                     guard let data = graphQLResult.data,
                           let serialized = try? JSONSerialization.data(withJSONObject: data.jsonObject, options: []),
-                          let query = try? self?.decoder.decode(Query.self, from: serialized) else {
+                          let query = try? self?.decoder.decode(AllPokemonQueryResponse.self, from: serialized) else {
                               self?.failureMessage = "Data couldn't be loaded correctly."
                               return
                           }
@@ -73,6 +71,13 @@ final class PokemonListViewModel: ObservableObject {
                 }
             }
         }
+    }
+
+    func getEvolvesToOf(pokemon: Pokemon) -> [Pokemon]? {
+        guard let evolvesTo = pokemon.evolvesTo else { return nil }
+        let evolvesToIds = evolvesTo.map { $0.id }
+        let result = pokemons.filter { evolvesToIds.contains($0.id) }
+        return result.isEmpty ? nil : result
     }
 
     private func restore() throws {
