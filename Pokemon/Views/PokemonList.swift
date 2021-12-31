@@ -9,6 +9,7 @@ import SwiftUI
 
 @available(iOS 15.0, *)
 struct PokemonList: View {
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel: PokemonListViewModel
 
     var body: some View {
@@ -25,9 +26,6 @@ struct PokemonList: View {
 
     private var navigationView: some View {
         NavigationView {
-            ZStack {
-                Color.systemBackground
-
                 VStack(spacing: .zero) {
                     CustomDivider()
 
@@ -42,7 +40,7 @@ struct PokemonList: View {
                         listOfPokemons
                     }
                 }
-            }
+            .background(Color.customSystemBackground, ignoresSafeAreaEdges: .bottom)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -80,7 +78,7 @@ struct PokemonList: View {
                         .opacity(.zero)
                         .buttonStyle(PlainButtonStyle())
                     }
-                    .listRowSeparator(.hidden)
+                    .customRowStyle()
                 }
             }
         }
@@ -93,9 +91,9 @@ struct PokemonList: View {
                 .font(.title3)
                 .padding(.top, K.PokemonList.sectionHeaderPadding)
 
-            CustomDivider()
+            CustomDivider(color: colorScheme == .dark ? .white : .dividerColor)
         }
-        .listRowSeparator(.hidden)
+        .customRowStyle()
     }
 }
 

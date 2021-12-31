@@ -16,14 +16,16 @@ final class PokemonDetailViewModel: ObservableObject {
 
     private var cancellable: AnyCancellable?
     private let service: PokemonDetailService
+    private(set) var getEvolvesTo: (Pokemon) -> [Pokemon]?
 
     var pokemonHasEvolutions: Bool {
         evolutions != nil
     }
 
-    init(pokemon: Pokemon, getEvolvesTo: (Pokemon) -> [Pokemon]?, service: PokemonDetailService = .init()) {
+    init(pokemon: Pokemon, getEvolvesTo: @escaping (Pokemon) -> [Pokemon]?, service: PokemonDetailService = .init()) {
         self.service = service
         self.pokemon = pokemon
+        self.getEvolvesTo = getEvolvesTo
         self.evolutions = getEvolvesTo(pokemon)
     }
 

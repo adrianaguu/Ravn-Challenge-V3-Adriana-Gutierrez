@@ -45,7 +45,7 @@ enum K {
         static let legendaryIconPadding = 16.0
         static let pokemonSpriteWidth = 160.0
         static let pokemonSpriteHeight = 160.0
-        static let descriptionBackgroundCornerRadius = 40.0
+        static let descriptionBackgroundCornerRadius = 30.0
         static let descriptionVerticalPadding = 16.0
         static let generationTextBottomPadding = 8.0
         static let evolutionsTopPadding = 16.0

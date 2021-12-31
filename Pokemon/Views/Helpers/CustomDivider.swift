@@ -8,8 +8,14 @@
 import SwiftUI
 
 struct CustomDivider: View {
-    let color: Color = .dividerColor
-    let width: CGFloat = 1
+    let color: Color
+    let width: CGFloat
+
+    init (color: Color = .dividerColor, width: CGFloat = 1) {
+        self.color = color
+        self.width = width
+    }
+
     var body: some View {
         Rectangle()
             .fill(color)

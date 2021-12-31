@@ -12,7 +12,8 @@ extension Color {
     static let customBackground = Color("CustomBackground")
     static let dividerColor = Color("DividerColor")
     static let arrowColor = Color("ArrowColor")
-    static let systemBackground = Color(UIColor.systemBackground)
+    static let customSystemBackground = Color("CustomSystemBackground")
+    static let segmentedControlsBackground = Color("SegmentedControlsBackground")
 
     // Pokemons Colors
     static let pokemonBlack = Color("Black")
