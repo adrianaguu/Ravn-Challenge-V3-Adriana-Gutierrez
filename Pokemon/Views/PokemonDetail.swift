@@ -27,12 +27,28 @@ struct PokemonDetail: View {
                 evolutions
                     .layoutPriority(1)
             }
+
+            legendaryIcon
+                .opacity(viewModel.pokemon.isLegendary ?? false ? 1 : 0)
         }
         .onAppear {
             viewModel.fetchDetails(of: viewModel.pokemon)
         }
         .navigationTitle("Pokemon Info")
         .background(Color.cellBackground, ignoresSafeAreaEdges: .top)
+    }
+
+    private var legendaryIcon: some View {
+        VStack {
+            HStack {
+                Spacer()
+
+                Image("Legendary icon")
+                    .frame(width: 36, height: 36)
+            }
+            Spacer()
+        }
+        .padding([.top, .trailing], 16)
     }
 
     private var header: some View {
