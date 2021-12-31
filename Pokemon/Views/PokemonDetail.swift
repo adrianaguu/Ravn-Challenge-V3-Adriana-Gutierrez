@@ -35,6 +35,7 @@ struct PokemonDetail: View {
         }
         .onAppear {
             viewModel.fetchDetails(of: viewModel.pokemon)
+            UISegmentedControl.appearance().backgroundColor = UIColor(Color.segmentedControlsBackground)
         }
         .navigationTitle(K.PokemonDetail.navBarTitle)
         .background(Color.customBackground, ignoresSafeAreaEdges: .top)
@@ -72,7 +73,7 @@ struct PokemonDetail: View {
 
     private var bodyDescription: some View {
         ZStack {
-            Color.systemBackground
+            Color.customSystemBackground
                 .cornerRadius(K.PokemonDetail.descriptionBackgroundCornerRadius, corners: [.topLeft, .topRight])
 
             VStack {
@@ -101,22 +102,20 @@ struct PokemonDetail: View {
     }
 
     private var evolutions: some View {
-        ZStack {
-            Color.systemBackground
-            ScrollView {
-                VStack {
-                    Text("Evolutions")
-                        .font(.title3)
+        ScrollView {
+            VStack {
+                Text("Evolutions")
+                    .font(.title3)
 
-                    ForEach(viewModel.evolutions ?? []) { evolutionPokemon in
-                        evolutionCell(evolutionPokemon: evolutionPokemon)
-                    }
-
-                    Spacer()
+                ForEach(viewModel.evolutions ?? []) { evolutionPokemon in
+                    evolutionCell(evolutionPokemon: evolutionPokemon)
                 }
-                .padding(.top, K.PokemonDetail.evolutionsTopPadding)
+
+                Spacer()
             }
+            .padding(.top, K.PokemonDetail.evolutionsTopPadding)
         }
+        .background(Color.customSystemBackground, ignoresSafeAreaEdges: .bottom)
     }
 
     private func evolutionCell(evolutionPokemon: Pokemon) -> some View {
@@ -129,7 +128,18 @@ struct PokemonDetail: View {
                 .font(.title2)
                 .foregroundColor(.arrowColor)
 
-            evolutionCellItem(pokemon: evolutionPokemon)
+            NavigationLink {
+                PokemonDetail(
+                    viewModel:
+                        PokemonDetailViewModel(
+                            pokemon: evolutionPokemon,
+                            getEvolvesTo: viewModel.getEvolvesTo
+                        )
+                )
+            } label: {
+                evolutionCellItem(pokemon: evolutionPokemon)
+            }
+            .buttonStyle(PlainButtonStyle())
 
             Spacer()
         }
@@ -142,11 +152,11 @@ struct PokemonDetail: View {
                 width: K.PokemonDetail.evolutionCellItemSpriteWidth,
                 height: K.PokemonDetail.evolutionCellItemSpriteHeight
             )
-            .circleBackground(color: .customBackground)
-            .frame(
-                width: K.PokemonDetail.evolutionCellItemCircleWidth,
-                height: K.PokemonDetail.evolutionCellItemCircleHeight
-            )
+                .circleBackground(color: .customBackground)
+                .frame(
+                    width: K.PokemonDetail.evolutionCellItemCircleWidth,
+                    height: K.PokemonDetail.evolutionCellItemCircleHeight
+                )
 
             Group {
                 Text(pokemon.name)

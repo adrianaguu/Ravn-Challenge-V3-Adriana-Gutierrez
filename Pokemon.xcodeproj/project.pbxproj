@@ -45,6 +45,7 @@
 		A4D768B8277B6B20009F2DAE /* PokemonListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D768B7277B6B20009F2DAE /* PokemonListViewModel.swift */; };
 		A4D768BC277B6E03009F2DAE /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D768BB277B6E03009F2DAE /* Network.swift */; };
 		A4E21C7E277F21D70095C18C /* CircleBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E21C7D277F21D70095C18C /* CircleBackground.swift */; };
+		A4E21C81277F66BA0095C18C /* CustomRowStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E21C80277F66BA0095C18C /* CustomRowStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		A4D768B7277B6B20009F2DAE /* PokemonListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListViewModel.swift; sourceTree = "<group>"; };
 		A4D768BB277B6E03009F2DAE /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		A4E21C7D277F21D70095C18C /* CircleBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleBackground.swift; sourceTree = "<group>"; };
+		A4E21C80277F66BA0095C18C /* CustomRowStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRowStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				A46839AD277D687500901389 /* RoundedCorner.swift */,
 				A46839AF277DED5000901389 /* CustomDivider.swift */,
 				A4E21C7D277F21D70095C18C /* CircleBackground.swift */,
+				A4E21C80277F66BA0095C18C /* CustomRowStyle.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 				A46839BF277E0FF200901389 /* PokemonDetailsResponse.swift in Sources */,
 				A4D768B8277B6B20009F2DAE /* PokemonListViewModel.swift in Sources */,
 				A499BBB8277A853000A66B8C /* PokemonList.swift in Sources */,
+				A4E21C81277F66BA0095C18C /* CustomRowStyle.swift in Sources */,
 				A46839BC277E049000901389 /* PokemonColor.swift in Sources */,
 				A499BBBF277AB36200A66B8C /* PokemonCell.swift in Sources */,
 				A46839A9277D5AE500901389 /* UINavigationController+Extensions.swift in Sources */,
