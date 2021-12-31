@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Apollo
 
 protocol Query: GraphQLQuery {
     var testData: Self.Data { get }

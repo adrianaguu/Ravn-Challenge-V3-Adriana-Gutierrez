@@ -12,9 +12,14 @@ struct PokemonDetailsResponse: Codable {
         let name: String
     }
 
+    struct Version: Codable {
+        let name: String
+    }
+
     struct FlavorText: Codable {
         let flavorText: String
         let language: Language
+        let version: Version
     }
 
     struct EvolutionChain: Codable {

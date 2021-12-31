@@ -25,6 +25,7 @@ struct PokemonDetail: View {
                 CustomDivider()
 
                 evolutions
+                    .layoutPriority(1)
             }
         }
         .onAppear {
@@ -52,19 +53,27 @@ struct PokemonDetail: View {
             Color.systemBackground
                 .cornerRadius(40, corners: [.topLeft, .topRight])
 
-            VStack {
+            VStack() {
                 let title = "#" + String(format: "%03d", viewModel.pokemon.id) + " " + viewModel.pokemon.name
                 Text(title)
                     .font(.title)
-
-                Text(viewModel.pokemon.generation)
 
                 HStack {
                     ForEach(viewModel.pokemon.types, id: \.self.name ) { type in
                         Image("Tags/\(type.name)")
                     }
                 }
+
+                Text(viewModel.pokemon.generation)
+                    .font(.body)
+                    .padding(.bottom, 8)
+
+                Text(viewModel.pokemon.flavorTextEnglish ?? "")
+                    .multilineTextAlignment(.center)
+                    .font(.footnote)
+                    .fixedSize(horizontal: false, vertical: true)
             }
+            .padding(.vertical, 16)
         }
     }
 
@@ -75,6 +84,8 @@ struct PokemonDetail: View {
             VStack {
                 Text("Evolutions")
                     .font(.title3)
+
+                Spacer()
             }
         }
     }
@@ -83,6 +94,8 @@ struct PokemonDetail: View {
 @available(iOS 15.0, *)
 struct PokemonDetail_Previews: PreviewProvider {
     static var previews: some View {
+        PokemonDetail(viewModel: PokemonDetailViewModel(pokemon: Pokemon.articuno))
+
         PokemonDetail(viewModel: PokemonDetailViewModel(pokemon: Pokemon.bulbasaur))
     }
 }

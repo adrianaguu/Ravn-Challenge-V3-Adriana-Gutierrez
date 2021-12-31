@@ -23,6 +23,13 @@ final class PokemonDetailViewModel: ObservableObject {
 
     private func setPokemonDetails(from response: PokemonDetailsResponse) {
         pokemon.color = PokemonColor(rawValue: response.color.name)
+        pokemon.isLegendary = response.isLegendary
+        pokemon.flavorTextEnglish = getFlavorTextIn(language: "en")
+        pokemon.flavorTextSpanish = getFlavorTextIn(language: "es")
+
+        func getFlavorTextIn(language: String) -> String? {
+            response.flavorTextEntries.first { $0.language.name == language && $0.version.name == "x" }?.flavorText
+        }
     }
 
     func fetchDetails(of pokemon: Pokemon) {
