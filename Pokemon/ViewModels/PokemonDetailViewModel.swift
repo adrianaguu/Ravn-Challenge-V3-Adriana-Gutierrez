@@ -54,6 +54,6 @@ final class PokemonDetailViewModel: ObservableObject {
                 }
         } catch {
             failureMessage = NetworkError.failedToLoadData.userMessageDescription
-        } 
+        }
     }
 }

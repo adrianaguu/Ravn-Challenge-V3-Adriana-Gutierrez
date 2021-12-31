@@ -12,5 +12,6 @@ final class Network {
     static let shared = Network()
     private init() {}
 
+    // swiftlint:disable:next force_unwrapping
     lazy var client = ApolloClient(url: URL(string: K.Network.pokemonsListURL)!)
 }

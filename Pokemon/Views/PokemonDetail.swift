@@ -22,7 +22,7 @@ struct PokemonDetail: View {
 
                 bodyDescription
 
-                if (viewModel.pokemonHasEvolutions) {
+                if viewModel.pokemonHasEvolutions {
                     CustomDivider()
 
                     evolutions
@@ -55,7 +55,11 @@ struct PokemonDetail: View {
 
     private var header: some View {
         VStack {
-            ResizableAsyncImage(url: viewModel.activeSprite.getFrom(pokemon: viewModel.pokemon), width: 159, height: 159)
+            ResizableAsyncImage(
+                url: viewModel.activeSprite.getFrom(pokemon: viewModel.pokemon),
+                width: 159,
+                height: 159
+            )
 
             Picker("Active Sprite", selection: $viewModel.activeSprite) {
                 Text("Default Sprite").tag(PokemonSprites.defaultFront)
@@ -71,7 +75,7 @@ struct PokemonDetail: View {
             Color.systemBackground
                 .cornerRadius(40, corners: [.topLeft, .topRight])
 
-            VStack() {
+            VStack {
                 Text(viewModel.pokemon.formatedId + " " + viewModel.pokemon.name )
                     .font(.title)
 
@@ -104,11 +108,9 @@ struct PokemonDetail: View {
                     Text("Evolutions")
                         .font(.title3)
 
-
-                    ForEach(viewModel.evolutions!) { evolutionPokemon in
+                    ForEach(viewModel.evolutions ?? []) { evolutionPokemon in
                         evolutionCell(evolutionPokemon: evolutionPokemon)
                     }
-
 
                     Spacer()
                 }

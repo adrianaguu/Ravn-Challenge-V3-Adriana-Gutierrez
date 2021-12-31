@@ -7,6 +7,7 @@
 
 import Foundation
 
+// swiftlint:disable line_length
 extension Pokemon {
     static var bulbasaur = Pokemon(
         id: 1,

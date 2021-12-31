@@ -1,5 +1,6 @@
 // @generated
 //  This file was automatically generated and should not be edited.
+// swiftlint:disable all
 
 import Apollo
 import Foundation

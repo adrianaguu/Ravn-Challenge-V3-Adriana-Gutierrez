@@ -14,6 +14,13 @@ enum K {
         static let pokemonDetailEndPointBase = "https://pokeapi.co/api/v2/pokemon-species/"
     }
 
+    enum NetworkError {
+        static let failedToLoadDataTitle = "There was an Error"
+        static let connectivityIssueTitle = "Connectivity Issue"
+        static let failedToLoadDataDescription = "Failed to Load Data"
+        static let connectivityIssueDescription = "There is a problem trying to connect\nPlease check your connectivity"
+    }
+
     enum PokemonCell {
         static let rectangleConerRadius = 17.0
         static let horizontalPaddingRectangle = 16.0

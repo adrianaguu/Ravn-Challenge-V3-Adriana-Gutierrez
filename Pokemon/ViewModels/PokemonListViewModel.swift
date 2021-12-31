@@ -32,7 +32,9 @@ final class PokemonListViewModel: ObservableObject {
     }
 
     var pokemonsSectioned: [String: [Pokemon]] {
-        Dictionary(grouping: searchResults, by: { $0.generation })
+        Dictionary(grouping: searchResults) {
+            $0.generation
+        }
     }
 
     var generations: [String] {

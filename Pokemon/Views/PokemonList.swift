@@ -53,7 +53,7 @@ struct PokemonList: View {
             }
             .background(Color.cellBackground, ignoresSafeAreaEdges: .top)
         }
-        .onAppear() {
+        .onAppear {
             UINavigationBar.appearance().backgroundColor = UIColor(.cellBackground)
         }
     }
@@ -63,11 +63,18 @@ struct PokemonList: View {
             ForEach(viewModel.generations) { generation in
                 sectionHeader(title: generation)
 
-                ForEach(viewModel.pokemonsSectioned[generation]!) { pokemon in
+                ForEach(viewModel.pokemonsSectioned[generation] ?? []) { pokemon in
                     ZStack {
                         PokemonCell(pokemon: pokemon)
 
-                        NavigationLink(destination: PokemonDetail(viewModel: PokemonDetailViewModel(pokemon: pokemon, getEvolvesTo: viewModel.getEvolvesToOf))) {
+                        NavigationLink {
+                            PokemonDetail(
+                                viewModel: PokemonDetailViewModel(
+                                    pokemon: pokemon,
+                                    getEvolvesTo: viewModel.getEvolvesToOf
+                                )
+                            )
+                        } label: {
                             EmptyView()
                         }
                         .opacity(.zero)
