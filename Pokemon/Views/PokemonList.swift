@@ -63,7 +63,7 @@ struct PokemonList: View {
                     ZStack {
                         PokemonCell(pokemon: pokemon)
 
-                        NavigationLink(destination: PokemonDetail(viewModel: PokemonDetailViewModel(pokemon: pokemon))) {
+                        NavigationLink(destination: PokemonDetail(viewModel: PokemonDetailViewModel(pokemon: pokemon, getEvolvesTo: viewModel.getEvolvesToOf))) {
                             EmptyView()
                         }
                         .opacity(.zero)

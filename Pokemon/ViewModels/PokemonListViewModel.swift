@@ -71,6 +71,13 @@ final class PokemonListViewModel: ObservableObject {
         }
     }
 
+    func getEvolvesToOf(pokemon: Pokemon) -> [Pokemon]? {
+        guard let evolvesTo = pokemon.evolvesTo else { return nil }
+        let evolvesToIds = evolvesTo.map { $0.id }
+        let result = pokemons.filter { evolvesToIds.contains($0.id) }
+        return result.isEmpty ? nil : result
+    }
+
     private func restore() throws {
         guard let url = K.PokemonsListStorage.path else { return }
 

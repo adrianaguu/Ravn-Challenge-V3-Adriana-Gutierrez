@@ -22,10 +22,12 @@ struct PokemonDetail: View {
 
                 bodyDescription
 
-                CustomDivider()
+                if (viewModel.evolvesTo != nil) {
+                    CustomDivider()
 
-                evolutions
-                    .layoutPriority(1)
+                    evolutions
+                        .layoutPriority(1)
+                }
             }
 
             legendaryIcon
@@ -88,6 +90,8 @@ struct PokemonDetail: View {
                     .multilineTextAlignment(.center)
                     .font(.footnote)
                     .fixedSize(horizontal: false, vertical: true)
+
+                Spacer()
             }
             .padding(.vertical, 16)
         }
@@ -101,7 +105,6 @@ struct PokemonDetail: View {
                 Text("Evolutions")
                     .font(.title3)
 
-                Spacer()
             }
         }
     }
@@ -110,8 +113,9 @@ struct PokemonDetail: View {
 @available(iOS 15.0, *)
 struct PokemonDetail_Previews: PreviewProvider {
     static var previews: some View {
-        PokemonDetail(viewModel: PokemonDetailViewModel(pokemon: Pokemon.articuno))
+        let getEvolvesTo = PokemonListViewModel().getEvolvesToOf
+        PokemonDetail(viewModel: PokemonDetailViewModel(pokemon: Pokemon.articuno, getEvolvesTo: getEvolvesTo))
 
-        PokemonDetail(viewModel: PokemonDetailViewModel(pokemon: Pokemon.bulbasaur))
+        PokemonDetail(viewModel: PokemonDetailViewModel(pokemon: Pokemon.bulbasaur, getEvolvesTo: getEvolvesTo))
     }
 }

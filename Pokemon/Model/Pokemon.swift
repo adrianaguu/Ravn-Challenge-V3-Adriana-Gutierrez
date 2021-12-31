@@ -17,23 +17,10 @@ struct Pokemon: Codable, Identifiable {
 
     // Detail information
     var color: PokemonColor?
-    var evolvesTo: [Pokemon]?
+    var evolvesTo: [EvolveTo]?
     var flavorTextEnglish: String?
     var flavorTextSpanish: String?
     var isLegendary: Bool?
-
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case sprites
-        case types
-        case generation
-    }
-
-    enum SpritesCodingKeys: String, CodingKey {
-        case defaultFrontalSprite = "front_default"
-        case shinyFrontalSprite = "front_shiny"
-    }
 
     init(
         id: Int,
@@ -43,7 +30,7 @@ struct Pokemon: Codable, Identifiable {
         types: [PokemonType],
         generation: String,
         color: PokemonColor? = nil,
-        evolvesTo: [Pokemon]? = nil,
+        evolvesTo: [EvolveTo]? = nil,
         flavorTextEnglish: String? = nil,
         flavorTextSpanish: String? = nil,
         isLegendary: Bool? = nil
@@ -61,6 +48,24 @@ struct Pokemon: Codable, Identifiable {
         self.isLegendary = isLegendary
     }
 
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case sprites
+        case types
+        case generation
+        case evolvesTo = "evolves_to"
+    }
+
+    enum SpritesCodingKeys: String, CodingKey {
+        case defaultFrontalSprite = "front_default"
+        case shinyFrontalSprite = "front_shiny"
+    }
+
+    enum EvolvesTo: String, CodingKey {
+        case id
+    }
+
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
@@ -68,6 +73,8 @@ struct Pokemon: Codable, Identifiable {
         name = name.capitalized
         generation = try values.decode(String.self, forKey: .generation)
         types = try values.decode([PokemonType].self, forKey: .types)
+        evolvesTo = try values.decode([EvolveTo]?.self, forKey: .evolvesTo)
+
 
         let sprites = try values.nestedContainer(keyedBy: SpritesCodingKeys.self, forKey: .sprites)
         defaultFrontalSprite = try sprites.decode(URL.self, forKey: .defaultFrontalSprite)
@@ -80,6 +87,7 @@ struct Pokemon: Codable, Identifiable {
         try container.encode(name, forKey: .name)
         try container.encode(generation, forKey: .generation)
         try container.encode(types, forKey: .types)
+        try container.encode(evolvesTo, forKey: .evolvesTo)
 
         var sprites = container.nestedContainer(keyedBy: SpritesCodingKeys.self, forKey: .sprites)
         try sprites.encode(defaultFrontalSprite, forKey: .defaultFrontalSprite)
