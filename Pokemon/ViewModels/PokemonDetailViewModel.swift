@@ -10,9 +10,12 @@ import Combine
 
 final class PokemonDetailViewModel: ObservableObject {
     @Published var pokemon: Pokemon
-    @Published var failureMessage: String?
+    @Published var networkError: NetworkError?
     @Published var activeSprite = PokemonSprites.defaultFront
     @Published var evolutions: [Pokemon]?
+    var isFetchingComplete: Bool {
+        pokemon.flavorTextSpanish != nil
+    }
 
     private var cancellable: AnyCancellable?
     private let service: PokemonDetailService
@@ -47,15 +50,15 @@ final class PokemonDetailViewModel: ObservableObject {
                 .sink { [weak self] result in
                     switch result {
                     case .finished:
-                        self?.failureMessage = nil
-                    case .failure(let error):
-                        self?.failureMessage = error.localizedDescription
+                        self?.networkError = nil
+                    case .failure:
+                        self?.networkError = .failedToLoadData
                     }
                 } receiveValue: { [weak self] in
                     self?.setPokemonDetails(from: $0)
                 }
         } catch {
-            failureMessage = NetworkError.failedToLoadData.userMessageDescription
+            networkError = .failedToLoadData
         }
     }
 }

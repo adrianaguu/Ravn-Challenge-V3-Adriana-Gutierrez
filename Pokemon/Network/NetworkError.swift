@@ -30,3 +30,7 @@ enum NetworkError: Error {
         }
     }
 }
+
+extension NetworkError: Identifiable {
+    var id: Self { self }
+}

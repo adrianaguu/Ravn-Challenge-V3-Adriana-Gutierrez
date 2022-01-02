@@ -11,35 +11,32 @@ import SwiftUI
 struct PokemonList: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel: PokemonListViewModel
+    @EnvironmentObject var monitor: Monitor
 
     var body: some View {
         navigationView
             .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
-            .alert(item: $viewModel.failureMessage) { failureMessage in
-                Alert(
-                    title: Text("There was an Error"),
-                    message: Text(failureMessage),
-                    dismissButton: .default(Text("OK"))
-                )
-            }
     }
 
     private var navigationView: some View {
         NavigationView {
-                VStack(spacing: .zero) {
-                    CustomDivider()
-
-                    if viewModel.pokemons.isEmpty {
-                        Spacer()
-
-                        ProgressView()
-                            .onAppear(perform: viewModel.fetchPokemons)
-
-                        Spacer()
-                    } else {
-                        listOfPokemons
-                    }
+            VStack(spacing: .zero) {
+                CustomDivider()
+                VStack {
+                    listOfPokemons
+                        .showFailedToLoadData(
+                            networkError: $viewModel.networkError,
+                            shouldShowSpinner: viewModel.pokemons.isEmpty
+                        )
                 }
+                .showConnectivityIssue(
+                    networkError: monitor.networkError,
+                    tryAgainAction: viewModel.fetchPokemons,
+                    cancelAction: {},
+                    shouldShowSpinner: viewModel.pokemons.isEmpty,
+                    showAlert: $monitor.showAlert
+                )
+            }
             .background(Color.customSystemBackground, ignoresSafeAreaEdges: .bottom)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -52,6 +49,7 @@ struct PokemonList: View {
             .background(Color.customBackground, ignoresSafeAreaEdges: .top)
         }
         .onAppear {
+            viewModel.fetchPokemons()
             UINavigationBar.appearance().backgroundColor = UIColor(.customBackground)
         }
     }

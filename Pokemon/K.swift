@@ -11,14 +11,14 @@ import Foundation
 enum K {
     enum Network {
         static let pokemonsListURL = "https://dex-server.herokuapp.com/"
-        static let pokemonDetailEndPointBase = "https://pokeapi.co/api/v2/pokemon-species/"
+        static let pokemonDetailEndPointBase = "https://pokeapi.co/api/v2/pokkemon-species/"
     }
 
     enum NetworkError {
         static let failedToLoadDataTitle = "There was an Error"
         static let connectivityIssueTitle = "Connectivity Issue"
         static let failedToLoadDataDescription = "Failed to Load Data"
-        static let connectivityIssueDescription = "There is a problem trying to connect\nPlease check your connectivity"
+        static let connectivityIssueDescription = "There is a problem trying to connect.\nPlease check your connectivity"
     }
 
     enum PokemonCell {

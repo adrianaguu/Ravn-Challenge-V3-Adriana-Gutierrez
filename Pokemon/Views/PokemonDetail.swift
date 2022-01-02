@@ -11,6 +11,7 @@ import Kingfisher
 @available(iOS 15.0, *)
 struct PokemonDetail: View {
     @StateObject var viewModel: PokemonDetailViewModel
+    @EnvironmentObject var monitor: Monitor
 
     var body: some View {
         ZStack {
@@ -28,11 +29,25 @@ struct PokemonDetail: View {
                     evolutions
                         .layoutPriority(1)
                 }
+
+                Color.customSystemBackground
+                    .ignoresSafeArea(.all, edges: .bottom)
             }
+            .showFailedToLoadData(
+                networkError: $viewModel.networkError,
+                shouldShowSpinner: !viewModel.isFetchingComplete
+            )
 
             legendaryIcon
                 .opacity(viewModel.pokemon.isLegendary ?? false ? 1 : 0)
         }
+        .showConnectivityIssue(
+            networkError: monitor.networkError,
+            tryAgainAction: { viewModel.fetchDetails(of: viewModel.pokemon) },
+            cancelAction: {},
+            shouldShowSpinner: !viewModel.isFetchingComplete,
+            showAlert: $monitor.showAlert
+        )
         .onAppear {
             viewModel.fetchDetails(of: viewModel.pokemon)
             UISegmentedControl.appearance().backgroundColor = UIColor(Color.segmentedControlsBackground)
@@ -115,7 +130,7 @@ struct PokemonDetail: View {
             }
             .padding(.top, K.PokemonDetail.evolutionsTopPadding)
         }
-        .background(Color.customSystemBackground, ignoresSafeAreaEdges: .bottom)
+        .background(Color.customSystemBackground)
     }
 
     private func evolutionCell(evolutionPokemon: Pokemon) -> some View {

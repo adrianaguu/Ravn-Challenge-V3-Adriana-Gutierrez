@@ -11,9 +11,11 @@ import SwiftUI
 @main
 struct PokemonApp: App {
     @StateObject var pokemonListViewModel = PokemonListViewModel()
+    @StateObject var monitor = Monitor()
     var body: some Scene {
         WindowGroup {
             PokemonList(viewModel: pokemonListViewModel)
+                .environmentObject(monitor)
         }
     }
 }
