@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ShowFailedToLoadData: ViewModifier {
-    @Binding var networkError: NetworkError?
-    @Binding var shouldShowError: Bool
+    var networkError: NetworkError?
+    var shouldShowError: Bool
     let shouldShowSpinner: Bool
 
     func body(content: Content) -> some View {
@@ -19,9 +19,9 @@ struct ShowFailedToLoadData: ViewModifier {
             if networkError == nil {
                 if shouldShowError {
                     VStack {
-                        Text("Failed to Load Data")
+                        Text(K.NetworkError.failedToLoadDataDescription)
                             .foregroundColor(.red)
-                            .padding(.top, 16)
+                            .padding(.top, K.NetworkError.topPaddingErrorMessage)
 
                         Spacer()
                     }
@@ -36,7 +36,7 @@ struct ShowFailedToLoadData: ViewModifier {
 }
 
 extension View {
-    func showFailedToLoadData(networkError: Binding<NetworkError?>, shouldShowSpinner: Bool, shouldShowError: Binding<Bool>) -> some View {
+    func showFailedToLoadData(networkError: NetworkError?, shouldShowSpinner: Bool, shouldShowError: Bool) -> some View {
         modifier(ShowFailedToLoadData(
             networkError: networkError,
             shouldShowError: shouldShowError,

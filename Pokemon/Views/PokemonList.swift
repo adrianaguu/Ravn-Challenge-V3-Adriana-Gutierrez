@@ -22,26 +22,27 @@ struct PokemonList: View {
         NavigationView {
             VStack(spacing: .zero) {
                 CustomDivider()
-                VStack {
-                    listOfPokemons
-                        .showFailedToLoadData(
-                            networkError: $viewModel.networkError,
-                            shouldShowSpinner: viewModel.pokemons.isEmpty
-                        )
-                }
-                .showConnectivityIssue(
-                    networkError: monitor.networkError,
-                    tryAgainAction: viewModel.fetchPokemons,
-                    cancelAction: {},
-                    shouldShowSpinner: viewModel.pokemons.isEmpty,
-                    showAlert: $monitor.showAlert
-                )
+                    .failedToLoadDataAlert(
+                        networkError: $viewModel.networkError,
+                        dismissAction: viewModel.showErrorLoadData
+                    )
+
+                listOfPokemons
+                    .showFailedToLoadData(
+                        networkError: viewModel.networkError,
+                        shouldShowSpinner: viewModel.pokemons.isEmpty,
+                        shouldShowError: viewModel.shouldShowErrorLoadData
+                    )
+                    .showConnectivityIssue(
+                        networkError: monitor.networkError
+                    )
+                    .connectivityIssueAlert(isPresented: $monitor.showAlert)
             }
             .background(Color.customSystemBackground, ignoresSafeAreaEdges: .bottom)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Text(K.PokemonList.navBarTitle)
+                    Text(K.pokemonList)
                         .font(.largeTitle)
                         .bold()
                 }

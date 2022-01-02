@@ -6,19 +6,30 @@
 //
 
 import Foundation
+import SwiftUI
 
 // swiftlint:disable:next type_name
 enum K {
+    static let pokemonList: LocalizedStringKey = "Pokemon List"
+    static let pokemonInfo: LocalizedStringKey = "Pokemon Info"
+    static let evolutions: LocalizedStringKey = "Evolutions"
+    static let defaultSprite: LocalizedStringKey = "Default Sprite"
+    static let shinySprite: LocalizedStringKey = "Shiny Sprite"
+    static let tryAgain: LocalizedStringKey = "Try Again"
+
+
     enum Network {
         static let pokemonsListURL = "https://dex-server.herokuapp.com/"
-        static let pokemonDetailEndPointBase = "https://pokeapi.co/api/v2/pokkemon-species/"
+        static let pokemonDetailEndPointBase = "https://pokeapi.co/api/v2/pokemon-species/"
     }
 
     enum NetworkError {
-        static let failedToLoadDataTitle = "There was an Error"
-        static let connectivityIssueTitle = "Connectivity Issue"
-        static let failedToLoadDataDescription = "Failed to Load Data"
-        static let connectivityIssueDescription = "There is a problem trying to connect.\nPlease check your connectivity"
+        static let failedToLoadDataTitle = LocalizedStringKey("There was an Error")
+        static let connectivityIssueTitle = LocalizedStringKey("Connectivity Issue")
+        static let failedToLoadDataDescription = LocalizedStringKey("Failed to Load Data")
+        static let connectivityIssueDescription = LocalizedStringKey("There is a problem trying to connect.\nPlease check your connectivity")
+        static let topPaddingErrorMessage = 16.0
+        static let topPaddingErrorImage = 32.0
     }
 
     enum PokemonCell {
@@ -32,12 +43,10 @@ enum K {
     }
 
     enum PokemonList {
-        static let navBarTitle = "Pokemon List"
         static let sectionHeaderPadding = 16.0
     }
 
     enum PokemonDetail {
-        static let navBarTitle = "Pokemon Info"
         static let headerBottomPadding = 8.0
         static let controlSegmentsPadding = 16.0
         static let legendaryIconWidth = 36.0

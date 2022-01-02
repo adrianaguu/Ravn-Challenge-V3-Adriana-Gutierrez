@@ -19,7 +19,7 @@ struct ShowConnectivityIssue: ViewModifier {
             } else {
                 VStack {
                     Image("Connectivity Issue")
-                        .padding(.top, 32)
+                        .padding(.top, K.NetworkError.topPaddingErrorMessage)
 
                     Spacer()
                 }

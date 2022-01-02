@@ -20,6 +20,7 @@ final class PokemonListViewModel: ObservableObject {
     }
     @Published var networkError: NetworkError?
     @Published var searchText = ""
+    @Published var shouldShowErrorLoadData = false
 
     var searchResults: [Pokemon] {
         if searchText.isEmpty {
@@ -48,6 +49,7 @@ final class PokemonListViewModel: ObservableObject {
     }
 
     func fetchPokemons() {
+        shouldShowErrorLoadData = false
         do {
             try restore()
         } catch {
@@ -71,6 +73,10 @@ final class PokemonListViewModel: ObservableObject {
                 }
             }
         }
+    }
+
+    func showErrorLoadData() {
+        shouldShowErrorLoadData = true
     }
 
     func getEvolvesToOf(pokemon: Pokemon) -> [Pokemon]? {

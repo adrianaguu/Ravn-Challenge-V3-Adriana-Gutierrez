@@ -20,8 +20,13 @@ struct PokemonDetail: View {
             VStack(spacing: .zero) {
                 header
                     .padding(.bottom, K.PokemonDetail.headerBottomPadding)
+                    .connectivityIssueAlert(isPresented: $monitor.showAlert)
 
                 bodyDescription
+                    .failedToLoadDataAlert(
+                        networkError: $viewModel.networkError,
+                        dismissAction: viewModel.showErrorLoadData
+                    )
 
                 if viewModel.pokemonHasEvolutions {
                     CustomDivider()
@@ -33,26 +38,23 @@ struct PokemonDetail: View {
                 Color.customSystemBackground
                     .ignoresSafeArea(.all, edges: .bottom)
             }
-            .showFailedToLoadData(
-                networkError: $viewModel.networkError,
-                shouldShowSpinner: !viewModel.isFetchingComplete
-            )
 
             legendaryIcon
                 .opacity(viewModel.pokemon.isLegendary ?? false ? 1 : 0)
         }
-        .showConnectivityIssue(
-            networkError: monitor.networkError,
-            tryAgainAction: { viewModel.fetchDetails(of: viewModel.pokemon) },
-            cancelAction: {},
+        .showFailedToLoadData(
+            networkError: viewModel.networkError,
             shouldShowSpinner: !viewModel.isFetchingComplete,
-            showAlert: $monitor.showAlert
+            shouldShowError: viewModel.shouldShowErrorLoadData
+        )
+        .showConnectivityIssue(
+            networkError: monitor.networkError
         )
         .onAppear {
             viewModel.fetchDetails(of: viewModel.pokemon)
             UISegmentedControl.appearance().backgroundColor = UIColor(Color.segmentedControlsBackground)
         }
-        .navigationTitle(K.PokemonDetail.navBarTitle)
+        .navigationTitle(K.pokemonInfo)
         .background(Color.customBackground, ignoresSafeAreaEdges: .top)
     }
 
@@ -64,6 +66,7 @@ struct PokemonDetail: View {
                 Image("Legendary icon")
                     .frame(width: K.PokemonDetail.legendaryIconWidth, height: K.PokemonDetail.legendaryIconHeight)
             }
+
             Spacer()
         }
         .padding([.top, .trailing], K.PokemonDetail.legendaryIconPadding)
@@ -78,8 +81,8 @@ struct PokemonDetail: View {
             )
 
             Picker("Active Sprite", selection: $viewModel.activeSprite) {
-                Text("Default Sprite").tag(PokemonSprites.defaultFront)
-                Text("Shiny Sprite").tag(PokemonSprites.shinyFront)
+                Text(K.defaultSprite).tag(PokemonSprites.defaultFront)
+                Text(K.shinySprite).tag(PokemonSprites.shinyFront)
             }
             .pickerStyle(.segmented)
             .padding(.horizontal, K.PokemonDetail.controlSegmentsPadding)
@@ -105,7 +108,7 @@ struct PokemonDetail: View {
                     .font(.body)
                     .padding(.bottom, K.PokemonDetail.generationTextBottomPadding)
 
-                Text(viewModel.pokemon.flavorTextEnglish ?? "")
+                Text(viewModel.pokemonDescription ?? "")
                     .multilineTextAlignment(.center)
                     .font(.footnote)
                     .fixedSize(horizontal: false, vertical: true)
@@ -119,7 +122,7 @@ struct PokemonDetail: View {
     private var evolutions: some View {
         ScrollView {
             VStack {
-                Text("Evolutions")
+                Text(K.evolutions)
                     .font(.title3)
 
                 ForEach(viewModel.evolutions ?? []) { evolutionPokemon in
