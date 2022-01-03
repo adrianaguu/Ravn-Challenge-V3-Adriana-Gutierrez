@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum NetworkError: Error {
     case invalidURL
     case failedToLoadData
     case connectivityIssue
 
-    var userMessageTitle: String {
+    var userMessageTitle: LocalizedStringKey {
         switch self {
         case .invalidURL, .failedToLoadData:
             return K.NetworkError.failedToLoadDataTitle
@@ -21,7 +22,7 @@ enum NetworkError: Error {
         }
     }
 
-    var userMessageDescription: String {
+    var userMessageDescription: LocalizedStringKey {
         switch self {
         case .invalidURL, .failedToLoadData:
             return K.NetworkError.failedToLoadDataDescription
@@ -29,4 +30,8 @@ enum NetworkError: Error {
             return K.NetworkError.connectivityIssueDescription
         }
     }
+}
+
+extension NetworkError: Identifiable {
+    var id: Self { self }
 }

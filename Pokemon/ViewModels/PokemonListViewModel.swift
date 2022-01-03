@@ -18,8 +18,9 @@ final class PokemonListViewModel: ObservableObject {
             self.store()
         }
     }
-    @Published var failureMessage: String?
+    @Published var networkError: NetworkError?
     @Published var searchText = ""
+    @Published var shouldShowErrorLoadData = false
 
     var searchResults: [Pokemon] {
         if searchText.isEmpty {
@@ -48,6 +49,7 @@ final class PokemonListViewModel: ObservableObject {
     }
 
     func fetchPokemons() {
+        shouldShowErrorLoadData = false
         do {
             try restore()
         } catch {
@@ -58,19 +60,23 @@ final class PokemonListViewModel: ObservableObject {
                     guard let data = graphQLResult.data,
                           let serialized = try? JSONSerialization.data(withJSONObject: data.jsonObject, options: []),
                           let query = try? self?.decoder.decode(AllPokemonQueryResponse.self, from: serialized) else {
-                              self?.failureMessage = "Data couldn't be loaded correctly."
+                              self?.networkError = .failedToLoadData
                               return
                           }
 
-                    self?.failureMessage = nil
+                    self?.networkError = nil
                     DispatchQueue.main.async {
                         self?.pokemons = query.allPokemon
                     }
-                case .failure(let error):
-                    self?.failureMessage = error.localizedDescription
+                case .failure:
+                    self?.networkError = .failedToLoadData
                 }
             }
         }
+    }
+
+    func showErrorLoadData() {
+        shouldShowErrorLoadData = true
     }
 
     func getEvolvesToOf(pokemon: Pokemon) -> [Pokemon]? {

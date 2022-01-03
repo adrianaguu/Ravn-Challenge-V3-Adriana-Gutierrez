@@ -11,40 +11,42 @@ import SwiftUI
 struct PokemonList: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel: PokemonListViewModel
+    @EnvironmentObject var monitor: Monitor
 
     var body: some View {
         navigationView
             .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
-            .alert(item: $viewModel.failureMessage) { failureMessage in
-                Alert(
-                    title: Text("There was an Error"),
-                    message: Text(failureMessage),
-                    dismissButton: .default(Text("OK"))
-                )
-            }
+            .disableAutocorrection(true)
     }
 
     private var navigationView: some View {
         NavigationView {
-                VStack(spacing: .zero) {
-                    CustomDivider()
+            VStack(spacing: .zero) {
+                CustomDivider()
+                    .failedToLoadDataAlert(
+                        networkError: $viewModel.networkError,
+                        dismissAction: viewModel.showErrorLoadData
+                    )
 
-                    if viewModel.pokemons.isEmpty {
-                        Spacer()
-
-                        ProgressView()
-                            .onAppear(perform: viewModel.fetchPokemons)
-
-                        Spacer()
-                    } else {
-                        listOfPokemons
-                    }
-                }
+                listOfPokemons
+                    .showFailedToLoadData(
+                        networkError: viewModel.networkError,
+                        shouldShowSpinner: viewModel.pokemons.isEmpty,
+                        shouldShowError: viewModel.shouldShowErrorLoadData
+                    )
+                    .showConnectivityIssue(
+                        networkError: monitor.networkError
+                    )
+                    .connectivityIssueAlert(
+                        isPresented: $monitor.showAlert,
+                        tryAgainAction: viewModel.fetchPokemons
+                    )
+            }
             .background(Color.customSystemBackground, ignoresSafeAreaEdges: .bottom)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Text(K.PokemonList.navBarTitle)
+                    Text(K.pokemonList)
                         .font(.largeTitle)
                         .bold()
                 }
@@ -52,6 +54,7 @@ struct PokemonList: View {
             .background(Color.customBackground, ignoresSafeAreaEdges: .top)
         }
         .onAppear {
+            viewModel.fetchPokemons()
             UINavigationBar.appearance().backgroundColor = UIColor(.customBackground)
         }
     }

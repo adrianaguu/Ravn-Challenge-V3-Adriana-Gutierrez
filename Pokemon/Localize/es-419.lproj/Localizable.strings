@@ -1,0 +1,17 @@
+//
+//  Localizable.strings
+//  Pokemon
+//
+//  Created by Adriana Gutierrez on 2/01/22.
+//
+
+"Pokemon List" = "Lista de Pokemons";
+"Pokemon Info" = "Información de Pokemons";
+"Evolutions" = "Evoluciones";
+"Default Sprite" = "Sprite Predeterminado";
+"Shiny Sprite" = "Sprite Brillante";
+"There was an Error" = "Hubo un Error";
+"Connectivity Issue" = "Problema de conexión";
+"Failed to Load Data" = "Error al Cargar Datos";
+"There is a problem trying to connect.\nPlease check your connectivity" = "Hay un problema al intentar conectarse.\n Por favor compruebe su conectividad";
+"Try Again" = "Volver a Intentarlo";
