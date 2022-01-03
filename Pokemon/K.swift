@@ -17,7 +17,6 @@ enum K {
     static let shinySprite: LocalizedStringKey = "Shiny Sprite"
     static let tryAgain: LocalizedStringKey = "Try Again"
 
-
     enum Network {
         static let pokemonsListURL = "https://dex-server.herokuapp.com/"
         static let pokemonDetailEndPointBase = "https://pokeapi.co/api/v2/pokemon-species/"
@@ -48,6 +47,7 @@ enum K {
     }
 
     enum PokemonDetail {
+        static let version = "x"
         static let headerBottomPadding = 8.0
         static let controlSegmentsPadding = 16.0
         static let legendaryIconWidth = 36.0

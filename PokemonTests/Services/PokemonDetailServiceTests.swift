@@ -31,7 +31,7 @@ class PokemonDetailServiceTests: XCTestCase {
 
     var responseBulbasaur: PokemonDetailsResponse {
         do {
-            let decoder = JSONDecoder()
+            let decoder = JSONDecoder.convertSnakeCaseStrategy
             return try decoder.decode(PokemonDetailsResponse.self, from: dataResponseOfBulbasaur)
         } catch {
             fatalError("Couldn't parse data to PokemonDetailsResponse")
@@ -68,5 +68,46 @@ class PokemonDetailServiceTests: XCTestCase {
         // Then
         response = try XCTUnwrap(response)
         XCTAssertEqual(response, responseBulbasaur)
+    }
+
+    func testFetchPokemonDetails_ShouldFail() throws {
+        // Given
+        let mockSession = URLSessionMock(filename: filename, shouldFail: true)
+        let service = PokemonDetailService(session: mockSession)
+        let expectation = self.expectation(description: "Planets Service Response Expectation")
+
+
+        // When
+        var response: PokemonDetailsResponse?
+        cancellable = try? service.getPokemonDetails(id: 1)
+            .sink { result in
+                switch result {
+                case .finished:
+                    XCTFail("Test of pokemon details succeed when it shouldn't have.")
+                case .failure:
+                    expectation.fulfill()
+                }
+            } receiveValue: {
+                response = $0
+            }
+        self.wait(for: [expectation], timeout: 0.4)
+
+        // Then
+        XCTAssertNil(response)
+    }
+
+    func testFetchPokemonDetails_ShouldThrowInvalidURLError() throws {
+        // Given
+        let mockSession = URLSessionMock(filename: filename, shouldFail: true)
+        let service = PokemonDetailService(session: mockSession, urlBase: "{")
+
+        // When
+        XCTAssertThrowsError(
+            try service.getPokemonDetails(id: 1),
+            "Get pokemon details should have thrown invalid url"
+        ) { error in
+            // Then
+            XCTAssertEqual(error as? NetworkError, NetworkError.invalidURL)
+        }
     }
 }

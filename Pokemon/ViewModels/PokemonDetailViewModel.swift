@@ -48,7 +48,9 @@ final class PokemonDetailViewModel: ObservableObject {
         pokemon.flavorTextSpanish = getFlavorTextIn(language: "es")
 
         func getFlavorTextIn(language: String) -> String? {
-            response.flavorTextEntries.first { $0.language.name == language && $0.version.name == "x" }?.flavorText
+            response.flavorTextEntries.first {
+                $0.language.name == language && $0.version.name == K.PokemonDetail.version
+            }?.flavorText
         }
     }
 
