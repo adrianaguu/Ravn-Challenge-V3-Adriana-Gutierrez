@@ -9,9 +9,9 @@ import Foundation
 import Apollo
 
 final class Network {
-    static let shared = Network()
-    private init() {}
+    var apollo: NetworkClientApollo
 
-    // swiftlint:disable:next force_unwrapping
-    lazy var client = ApolloClient(url: URL(string: K.Network.pokemonsListURL)!)
+    init(apollo: NetworkClientApollo = NetworkClient.shared) {
+        self.apollo = apollo
+    }
 }

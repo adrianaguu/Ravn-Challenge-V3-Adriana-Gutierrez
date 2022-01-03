@@ -21,7 +21,7 @@
 		A46839BF277E0FF200901389 /* PokemonDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46839BE277E0FF200901389 /* PokemonDetailsResponse.swift */; };
 		A46839C1277E11B500901389 /* PokemonDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46839C0277E11B500901389 /* PokemonDetailViewModel.swift */; };
 		A46839C3277E267800901389 /* PokemonDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46839C2277E267800901389 /* PokemonDetailService.swift */; };
-		A46839C5277E269900901389 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46839C4277E269900901389 /* Query.swift */; };
+		A46839C5277E269900901389 /* MockNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46839C4277E269900901389 /* MockNetworkClient.swift */; };
 		A46839C7277E2A6500901389 /* PokemonsListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46839C6277E2A6500901389 /* PokemonsListService.swift */; };
 		A46839C9277E3ADF00901389 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46839C8277E3ADF00901389 /* NetworkError.swift */; };
 		A46839CB277E5A6600901389 /* JSONDecoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46839CA277E5A6600901389 /* JSONDecoder+Extensions.swift */; };
@@ -36,12 +36,17 @@
 		A499BBC1277AB49100A66B8C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A499BBC0277AB49100A66B8C /* Images.xcassets */; };
 		A499BBEB277AB85700A66B8C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A499BBEA277AB85700A66B8C /* Colors.xcassets */; };
 		A499BBEE277ABB3800A66B8C /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499BBED277ABB3800A66B8C /* Color+Extensions.swift */; };
+		A4B92DA1278363D500585209 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B92DA0278363D500585209 /* NetworkClient.swift */; };
+		A4B92DA3278367D400585209 /* NetworkClientApollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B92DA2278367D400585209 /* NetworkClientApollo.swift */; };
+		A4B92DA52783702A00585209 /* QueryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B92DA42783702A00585209 /* QueryProtocol.swift */; };
+		A4B92DA72783777C00585209 /* GetAllPokemonsQuery+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B92DA62783777C00585209 /* GetAllPokemonsQuery+Extensions.swift */; };
+		A4B92DA92783949000585209 /* PokemonsListServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B92DA82783949000585209 /* PokemonsListServiceTests.swift */; };
 		A4C30FB327822FE000F01382 /* ShowFailedToLoadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C30FB227822FE000F01382 /* ShowFailedToLoadData.swift */; };
 		A4C30FB827824BC900F01382 /* ConnectivityIssueAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C30FB727824BC900F01382 /* ConnectivityIssueAlert.swift */; };
 		A4C30FBA27824D7300F01382 /* FailedToLoadDataAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C30FB927824D7300F01382 /* FailedToLoadDataAlert.swift */; };
 		A4C30FBD27825B4100F01382 /* Localizable.strings in Sources */ = {isa = PBXBuildFile; fileRef = A4C30FBF27825B4100F01382 /* Localizable.strings */; };
 		A4C30FC527827C6F00F01382 /* PokemonDetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C30FC427827C6F00F01382 /* PokemonDetailViewModelTests.swift */; };
-		A4C30FC727827CAD00F01382 /* ApiDataTaskPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C30FC627827CAD00F01382 /* ApiDataTaskPublisher.swift */; };
+		A4C30FC727827CAD00F01382 /* URLSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C30FC627827CAD00F01382 /* URLSessionMock.swift */; };
 		A4C30FCA27829C7100F01382 /* NetworkServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C30FC927829C7100F01382 /* NetworkServiceType.swift */; };
 		A4C30FCC27829D5900F01382 /* URLSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C30FCB27829D5900F01382 /* URLSession+Extensions.swift */; };
 		A4C30FD12782A59200F01382 /* BulbasaurDetail.json in Resources */ = {isa = PBXBuildFile; fileRef = A4C30FD02782A59100F01382 /* BulbasaurDetail.json */; };
@@ -85,7 +90,7 @@
 		A46839BE277E0FF200901389 /* PokemonDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailsResponse.swift; sourceTree = "<group>"; };
 		A46839C0277E11B500901389 /* PokemonDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewModel.swift; sourceTree = "<group>"; };
 		A46839C2277E267800901389 /* PokemonDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailService.swift; sourceTree = "<group>"; };
-		A46839C4277E269900901389 /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		A46839C4277E269900901389 /* MockNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkClient.swift; sourceTree = "<group>"; };
 		A46839C6277E2A6500901389 /* PokemonsListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonsListService.swift; sourceTree = "<group>"; };
 		A46839C8277E3ADF00901389 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		A46839CA277E5A6600901389 /* JSONDecoder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extensions.swift"; sourceTree = "<group>"; };
@@ -101,13 +106,18 @@
 		A499BBC0277AB49100A66B8C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A499BBEA277AB85700A66B8C /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		A499BBED277ABB3800A66B8C /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		A4B92DA0278363D500585209 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		A4B92DA2278367D400585209 /* NetworkClientApollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientApollo.swift; sourceTree = "<group>"; };
+		A4B92DA42783702A00585209 /* QueryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryProtocol.swift; sourceTree = "<group>"; };
+		A4B92DA62783777C00585209 /* GetAllPokemonsQuery+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GetAllPokemonsQuery+Extensions.swift"; sourceTree = "<group>"; };
+		A4B92DA82783949000585209 /* PokemonsListServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonsListServiceTests.swift; sourceTree = "<group>"; };
 		A4C30FB227822FE000F01382 /* ShowFailedToLoadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowFailedToLoadData.swift; sourceTree = "<group>"; };
 		A4C30FB727824BC900F01382 /* ConnectivityIssueAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityIssueAlert.swift; sourceTree = "<group>"; };
 		A4C30FB927824D7300F01382 /* FailedToLoadDataAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedToLoadDataAlert.swift; sourceTree = "<group>"; };
 		A4C30FBE27825B4100F01382 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A4C30FC027825B4E00F01382 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A4C30FC427827C6F00F01382 /* PokemonDetailViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewModelTests.swift; sourceTree = "<group>"; };
-		A4C30FC627827CAD00F01382 /* ApiDataTaskPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiDataTaskPublisher.swift; sourceTree = "<group>"; };
+		A4C30FC627827CAD00F01382 /* URLSessionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionMock.swift; sourceTree = "<group>"; };
 		A4C30FC927829C7100F01382 /* NetworkServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceType.swift; sourceTree = "<group>"; };
 		A4C30FCB27829D5900F01382 /* URLSession+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extensions.swift"; sourceTree = "<group>"; };
 		A4C30FD02782A59100F01382 /* BulbasaurDetail.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = BulbasaurDetail.json; sourceTree = "<group>"; };
@@ -151,8 +161,8 @@
 				A4C30FD22782A5FD00F01382 /* Services */,
 				A4C30FCF2782A57100F01382 /* Resources */,
 				A468399F277CF4D900901389 /* ViewModels */,
-				A46839C4277E269900901389 /* Query.swift */,
-				A4C30FC627827CAD00F01382 /* ApiDataTaskPublisher.swift */,
+				A46839C4277E269900901389 /* MockNetworkClient.swift */,
+				A4C30FC627827CAD00F01382 /* URLSessionMock.swift */,
 			);
 			path = PokemonTests;
 			sourceTree = "<group>";
@@ -288,6 +298,7 @@
 				A46839A8277D5AE500901389 /* UINavigationController+Extensions.swift */,
 				A46839CA277E5A6600901389 /* JSONDecoder+Extensions.swift */,
 				A4C30FCB27829D5900F01382 /* URLSession+Extensions.swift */,
+				A4B92DA62783777C00585209 /* GetAllPokemonsQuery+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -317,6 +328,8 @@
 			isa = PBXGroup;
 			children = (
 				A4C30FC927829C7100F01382 /* NetworkServiceType.swift */,
+				A4B92DA2278367D400585209 /* NetworkClientApollo.swift */,
+				A4B92DA42783702A00585209 /* QueryProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -333,6 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				A4C30FD32782A61A00F01382 /* PokemonDetailServiceTests.swift */,
+				A4B92DA82783949000585209 /* PokemonsListServiceTests.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -344,6 +358,7 @@
 				A4D768B4277B668B009F2DAE /* API.swift */,
 				A4D768BB277B6E03009F2DAE /* Network.swift */,
 				A4D768B1277B6268009F2DAE /* Queries.graphql */,
+				A4B92DA0278363D500585209 /* NetworkClient.swift */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -532,10 +547,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A46839C5277E269900901389 /* Query.swift in Sources */,
+				A46839C5277E269900901389 /* MockNetworkClient.swift in Sources */,
+				A4B92DA92783949000585209 /* PokemonsListServiceTests.swift in Sources */,
 				A4C30FC527827C6F00F01382 /* PokemonDetailViewModelTests.swift in Sources */,
 				A4C30FD42782A61A00F01382 /* PokemonDetailServiceTests.swift in Sources */,
-				A4C30FC727827CAD00F01382 /* ApiDataTaskPublisher.swift in Sources */,
+				A4C30FC727827CAD00F01382 /* URLSessionMock.swift in Sources */,
 				A46839A5277D345C00901389 /* PokemonsListViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -549,6 +565,7 @@
 				A499BBBD277AB18B00A66B8C /* Pokemon.swift in Sources */,
 				A4E21C88277FB63C0095C18C /* Monitor.swift in Sources */,
 				A46839A7277D546C00901389 /* PokemonData.swift in Sources */,
+				A4B92DA72783777C00585209 /* GetAllPokemonsQuery+Extensions.swift in Sources */,
 				A46839C3277E267800901389 /* PokemonDetailService.swift in Sources */,
 				A46839C7277E2A6500901389 /* PokemonsListService.swift in Sources */,
 				A46839C9277E3ADF00901389 /* NetworkError.swift in Sources */,
@@ -557,12 +574,14 @@
 				A46839CD277EB18000901389 /* PokemonEvolution.swift in Sources */,
 				A46839B9277E030400901389 /* PokemonType.swift in Sources */,
 				A4D768B5277B668B009F2DAE /* API.swift in Sources */,
+				A4B92DA3278367D400585209 /* NetworkClientApollo.swift in Sources */,
 				A46839AB277D5BE700901389 /* ResizableAsyncImage.swift in Sources */,
 				A4D768BC277B6E03009F2DAE /* Network.swift in Sources */,
 				A46839B2277DEF0200901389 /* PokemonSprites.swift in Sources */,
 				A4C30FB827824BC900F01382 /* ConnectivityIssueAlert.swift in Sources */,
 				A46839B0277DED5000901389 /* CustomDivider.swift in Sources */,
 				A46839AE277D687500901389 /* RoundedCorner.swift in Sources */,
+				A4B92DA1278363D500585209 /* NetworkClient.swift in Sources */,
 				A499BBBA277AAF4A00A66B8C /* PokemonDetail.swift in Sources */,
 				A4D768A7277B4340009F2DAE /* String+Extensions.swift in Sources */,
 				A499BBEE277ABB3800A66B8C /* Color+Extensions.swift in Sources */,
@@ -572,6 +591,7 @@
 				A4D768B8277B6B20009F2DAE /* PokemonListViewModel.swift in Sources */,
 				A499BBB8277A853000A66B8C /* PokemonList.swift in Sources */,
 				A4C30FCC27829D5900F01382 /* URLSession+Extensions.swift in Sources */,
+				A4B92DA52783702A00585209 /* QueryProtocol.swift in Sources */,
 				A4C30FB327822FE000F01382 /* ShowFailedToLoadData.swift in Sources */,
 				A4E21C81277F66BA0095C18C /* CustomRowStyle.swift in Sources */,
 				A46839BC277E049000901389 /* PokemonColor.swift in Sources */,

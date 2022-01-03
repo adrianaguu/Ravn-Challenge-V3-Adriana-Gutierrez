@@ -116,4 +116,17 @@ class PokemonDetailViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.networkError, NetworkError.invalidURL)
         XCTAssertFalse(viewModel.detailsFetchingSuccesful)
     }
+
+    func testShowErrorLoadData() {
+        // Given
+        let viewModel = PokemonDetailViewModel(pokemon: Pokemon.bulbasaurIncomplete) { _ in
+            return nil
+        }
+
+        // When
+        viewModel.showErrorLoadData()
+
+        // Then
+        XCTAssertTrue(viewModel.shouldShowErrorLoadData)
+    }
 }

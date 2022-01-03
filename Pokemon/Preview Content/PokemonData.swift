@@ -49,6 +49,17 @@ extension Pokemon {
         isLegendary: false
     )
 
+    static var ivysaur = Pokemon(
+        id: 2,
+        name: "Ivysaur",
+        defaultFrontalSprite: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png"),
+        shinyFrontalSprite: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/2.png"),
+        types: [PokemonType(name: "Grass"), PokemonType(name: "Poison")],
+        generation: "Generation I",
+        color: .green,
+        evolvesTo: [PokemonEvolution(id: 3)]
+    )
+
     static var bulbasaurIncomplete = Pokemon(
         id: 1,
         name: "Bulbasaur",

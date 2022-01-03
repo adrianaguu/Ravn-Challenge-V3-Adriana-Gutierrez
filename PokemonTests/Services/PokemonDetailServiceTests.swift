@@ -47,7 +47,7 @@ class PokemonDetailServiceTests: XCTestCase {
         // Given
         let mockSession = URLSessionMock(filename: filename, shouldFail: false)
         let service = PokemonDetailService(session: mockSession)
-        let expectation = self.expectation(description: "Planets Service Response Expectation")
+        let expectation = self.expectation(description: "Service Response Expectation")
 
 
         // When
@@ -74,7 +74,7 @@ class PokemonDetailServiceTests: XCTestCase {
         // Given
         let mockSession = URLSessionMock(filename: filename, shouldFail: true)
         let service = PokemonDetailService(session: mockSession)
-        let expectation = self.expectation(description: "Planets Service Response Expectation")
+        let expectation = self.expectation(description: "Service Response Expectation")
 
 
         // When
