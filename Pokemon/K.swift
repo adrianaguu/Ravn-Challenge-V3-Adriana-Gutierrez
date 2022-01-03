@@ -20,7 +20,7 @@ enum K {
 
     enum Network {
         static let pokemonsListURL = "https://dex-server.herokuapp.com/"
-        static let pokemonDetailEndPointBase = "https://pokeapi.co/api/v2/pokemon-species/"
+        static let pokemonDetailEndPointBase = "https://pokeapli.co/api/v2/pokemon-species/"
     }
 
     enum NetworkError {

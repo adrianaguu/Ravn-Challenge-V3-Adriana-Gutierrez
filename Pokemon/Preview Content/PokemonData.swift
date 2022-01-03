@@ -9,6 +9,32 @@ import Foundation
 
 // swiftlint:disable line_length
 extension Pokemon {
+    init(
+        id: Int,
+        name: String,
+        defaultFrontalSprite: URL?,
+        shinyFrontalSprite: URL?,
+        types: [PokemonType],
+        generation: String,
+        color: PokemonColor? = nil,
+        evolvesTo: [PokemonEvolution]? = nil,
+        flavorTextEnglish: String? = nil,
+        flavorTextSpanish: String? = nil,
+        isLegendary: Bool? = nil
+    ) {
+        self.id = id
+        self.name = name
+        self.defaultFrontalSprite = defaultFrontalSprite
+        self.shinyFrontalSprite = shinyFrontalSprite
+        self.types = types
+        self.generation = generation
+        self.color = color
+        self.evolvesTo = evolvesTo
+        self.flavorTextSpanish = flavorTextSpanish
+        self.flavorTextEnglish = flavorTextEnglish
+        self.isLegendary = isLegendary
+    }
+
     static var bulbasaur = Pokemon(
         id: 1,
         name: "Bulbasaur",

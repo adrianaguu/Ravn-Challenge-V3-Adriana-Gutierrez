@@ -15,6 +15,7 @@ struct ShowFailedToLoadData: ViewModifier {
     func body(content: Content) -> some View {
         ZStack {
             Color.customSystemBackground
+                .ignoresSafeArea(.all, edges: .bottom)
 
             if networkError == nil {
                 if shouldShowError {

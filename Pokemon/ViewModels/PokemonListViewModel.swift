@@ -7,12 +7,14 @@
 
 import Foundation
 import SwiftUI
+import Combine
 import os.log
 
 final class PokemonListViewModel: ObservableObject {
-    private var service: Network
+    private var service: PokemonsListService
     private let encoder: JSONEncoder
     private let decoder: JSONDecoder
+    private var cancellable: AnyCancellable?
     @Published var pokemons: [Pokemon] = [] {
         didSet {
             self.store()
@@ -42,7 +44,7 @@ final class PokemonListViewModel: ObservableObject {
         pokemonsSectioned.keys.sorted(by: <).map { String($0) }
     }
 
-    init(service: Network = Network.shared, encoder: JSONEncoder = .init(), decoder: JSONDecoder = .init()) {
+    init(service: PokemonsListService = .init(), encoder: JSONEncoder = .init(), decoder: JSONDecoder = .init()) {
         self.service = service
         self.encoder = encoder
         self.decoder = decoder
@@ -53,25 +55,18 @@ final class PokemonListViewModel: ObservableObject {
         do {
             try restore()
         } catch {
-            service.client.fetch(query: GetAllPokemonsQuery()) { [weak self] result in
-                switch result {
-                case .success(let graphQLResult):
-                    // Maping GraphQL response to custom type Pokemon
-                    guard let data = graphQLResult.data,
-                          let serialized = try? JSONSerialization.data(withJSONObject: data.jsonObject, options: []),
-                          let query = try? self?.decoder.decode(AllPokemonQueryResponse.self, from: serialized) else {
-                              self?.networkError = .failedToLoadData
-                              return
-                          }
-
-                    self?.networkError = nil
-                    DispatchQueue.main.async {
-                        self?.pokemons = query.allPokemon
+            cancellable = service.getPokemonList()
+                .receive(on: RunLoop.main)
+                .sink { [weak self] result in
+                    switch result {
+                    case .finished:
+                        self?.networkError = nil
+                    case .failure:
+                        self?.networkError = .failedToLoadData
                     }
-                case .failure:
-                    self?.networkError = .failedToLoadData
+                } receiveValue: { [weak self] in
+                    self?.pokemons = $0.allPokemon
                 }
-            }
         }
     }
 

@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class PokemonsListService {
+final class PokemonsListService {
     let decoder: JSONDecoder
     let network: Network
 
@@ -17,11 +17,32 @@ class PokemonsListService {
         self.network = network
     }
 
-//    func getPokemonList() -> AnyPublisher<PokemonDetailsResponse, Error> {
-//        var error: PokemonsListError?
-//        var dataPublisher: AnyPublisher<PokemonDetailsResponse, Error>
-//        network.client.fetch(query: GetAllPokemonsQuery()) { [weak self] result in
-//            dataPublisher = Just(result).eraseToAnyPublisher()
-//        }
-//    }
+    func getPokemonList() -> AnyPublisher<AllPokemonQueryResponse, Error> {
+        Deferred {
+            Future { [weak self] promise in
+                self?.network.client.fetch(query: GetAllPokemonsQuery()) { result in
+                    switch result {
+                    case .success(let graphQLResult):
+                        // Maping GraphQL response to custom type Pokemon
+                        guard let data = graphQLResult.data,
+                              let serialized = try? JSONSerialization.data(
+                                withJSONObject: data.jsonObject,
+                                options: []
+                              ),
+                              let query = try? self?.decoder.decode(
+                                AllPokemonQueryResponse.self,
+                                from: serialized
+                              ) else {
+                                  promise(.failure(NetworkError.failedToLoadData))
+                                  return
+                              }
+                        promise(.success(query))
+                    case .failure(let error):
+                        promise(.failure(error))
+                    }
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
 }
