@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ConnectivityIssueAlert: ViewModifier {
     @Binding var isPresented: Bool
+    let tryAgainAction: () -> Void
 
     func body(content: Content) -> some View {
         content
@@ -19,7 +20,7 @@ struct ConnectivityIssueAlert: ViewModifier {
                     primaryButton: .cancel(),
                     secondaryButton: .default(
                         Text(K.tryAgain),
-                        action: {}
+                        action: tryAgainAction
                     )
                 )
             }
@@ -27,9 +28,10 @@ struct ConnectivityIssueAlert: ViewModifier {
 }
 
 extension View {
-    func connectivityIssueAlert(isPresented: Binding<Bool>) -> some View {
+    func connectivityIssueAlert(isPresented: Binding<Bool>, tryAgainAction: @escaping () -> Void) -> some View {
         modifier(ConnectivityIssueAlert(
-            isPresented: isPresented
+            isPresented: isPresented,
+            tryAgainAction: tryAgainAction
         ))
     }
 }

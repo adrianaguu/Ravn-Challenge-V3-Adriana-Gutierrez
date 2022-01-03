@@ -40,7 +40,6 @@
 		A4C30FB827824BC900F01382 /* ConnectivityIssueAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C30FB727824BC900F01382 /* ConnectivityIssueAlert.swift */; };
 		A4C30FBA27824D7300F01382 /* FailedToLoadDataAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C30FB927824D7300F01382 /* FailedToLoadDataAlert.swift */; };
 		A4C30FBD27825B4100F01382 /* Localizable.strings in Sources */ = {isa = PBXBuildFile; fileRef = A4C30FBF27825B4100F01382 /* Localizable.strings */; };
-		A4C30FC32782654100F01382 /* SupportedLanguages.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C30FC22782654100F01382 /* SupportedLanguages.swift */; };
 		A4D768A7277B4340009F2DAE /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D768A6277B4340009F2DAE /* String+Extensions.swift */; };
 		A4D768A9277B5B74009F2DAE /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D768A8277B5B74009F2DAE /* K.swift */; };
 		A4D768AD277B607C009F2DAE /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = A4D768AC277B607C009F2DAE /* Apollo */; };
@@ -101,7 +100,6 @@
 		A4C30FB927824D7300F01382 /* FailedToLoadDataAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailedToLoadDataAlert.swift; sourceTree = "<group>"; };
 		A4C30FBE27825B4100F01382 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A4C30FC027825B4E00F01382 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		A4C30FC22782654100F01382 /* SupportedLanguages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedLanguages.swift; sourceTree = "<group>"; };
 		A4D768A6277B4340009F2DAE /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		A4D768A8277B5B74009F2DAE /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		A4D768AE277B61CF009F2DAE /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
@@ -292,7 +290,6 @@
 		A4C30FC12782652700F01382 /* Localize */ = {
 			isa = PBXGroup;
 			children = (
-				A4C30FC22782654100F01382 /* SupportedLanguages.swift */,
 				A4C30FBF27825B4100F01382 /* Localizable.strings */,
 			);
 			path = Localize;
@@ -529,7 +526,6 @@
 				A499BBB8277A853000A66B8C /* PokemonList.swift in Sources */,
 				A4C30FB327822FE000F01382 /* ShowFailedToLoadData.swift in Sources */,
 				A4E21C81277F66BA0095C18C /* CustomRowStyle.swift in Sources */,
-				A4C30FC32782654100F01382 /* SupportedLanguages.swift in Sources */,
 				A46839BC277E049000901389 /* PokemonColor.swift in Sources */,
 				A4E21C83277F7C7B0095C18C /* ShowConnectivityIssue.swift in Sources */,
 				A499BBBF277AB36200A66B8C /* PokemonCell.swift in Sources */,

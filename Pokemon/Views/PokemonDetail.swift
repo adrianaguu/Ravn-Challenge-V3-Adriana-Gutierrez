@@ -20,13 +20,13 @@ struct PokemonDetail: View {
             VStack(spacing: .zero) {
                 header
                     .padding(.bottom, K.PokemonDetail.headerBottomPadding)
-                    .connectivityIssueAlert(isPresented: $monitor.showAlert)
+                    .connectivityIssueAlert(
+                        isPresented: $monitor.showAlert
+                    ) {
+                        viewModel.fetchDetails(of: viewModel.pokemon)
+                    }
 
                 bodyDescription
-                    .failedToLoadDataAlert(
-                        networkError: $viewModel.networkError,
-                        dismissAction: viewModel.showErrorLoadData
-                    )
 
                 if viewModel.pokemonHasEvolutions {
                     CustomDivider()
@@ -49,6 +49,10 @@ struct PokemonDetail: View {
         )
         .showConnectivityIssue(
             networkError: monitor.networkError
+        )
+        .failedToLoadDataAlert(
+            networkError: $viewModel.networkError,
+            dismissAction: viewModel.showErrorLoadData
         )
         .onAppear {
             viewModel.fetchDetails(of: viewModel.pokemon)

@@ -16,6 +16,7 @@ struct PokemonList: View {
     var body: some View {
         navigationView
             .searchable(text: $viewModel.searchText, placement: .navigationBarDrawer(displayMode: .always))
+            .disableAutocorrection(true)
     }
 
     private var navigationView: some View {
@@ -36,7 +37,10 @@ struct PokemonList: View {
                     .showConnectivityIssue(
                         networkError: monitor.networkError
                     )
-                    .connectivityIssueAlert(isPresented: $monitor.showAlert)
+                    .connectivityIssueAlert(
+                        isPresented: $monitor.showAlert,
+                        tryAgainAction: viewModel.fetchPokemons
+                    )
             }
             .background(Color.customSystemBackground, ignoresSafeAreaEdges: .bottom)
             .navigationBarTitleDisplayMode(.inline)
