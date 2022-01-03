@@ -10,3 +10,5 @@ import Foundation
 struct PokemonEvolution: Codable {
     let id: Int
 }
+
+extension PokemonEvolution: Equatable {}

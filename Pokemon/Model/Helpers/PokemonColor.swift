@@ -46,3 +46,5 @@ extension PokemonColor {
         }
     }
 }
+
+extension PokemonColor: Equatable {}

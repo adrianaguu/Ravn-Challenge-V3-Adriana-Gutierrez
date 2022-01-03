@@ -10,3 +10,5 @@ import Foundation
 struct PokemonType: Codable {
     let name: String
 }
+
+extension PokemonType: Equatable {}

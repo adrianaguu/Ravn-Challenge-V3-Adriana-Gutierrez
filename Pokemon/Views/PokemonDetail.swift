@@ -21,10 +21,9 @@ struct PokemonDetail: View {
                 header
                     .padding(.bottom, K.PokemonDetail.headerBottomPadding)
                     .connectivityIssueAlert(
-                        isPresented: $monitor.showAlert
-                    ) {
-                        viewModel.fetchDetails(of: viewModel.pokemon)
-                    }
+                        isPresented: $monitor.showAlert,
+                        tryAgainAction: viewModel.fetchDetails
+                    )
 
                 bodyDescription
 
@@ -44,7 +43,7 @@ struct PokemonDetail: View {
         }
         .showFailedToLoadData(
             networkError: viewModel.networkError,
-            shouldShowSpinner: !viewModel.isFetchingComplete,
+            shouldShowSpinner: !viewModel.detailsFetchingSuccesful,
             shouldShowError: viewModel.shouldShowErrorLoadData
         )
         .showConnectivityIssue(
@@ -55,7 +54,7 @@ struct PokemonDetail: View {
             dismissAction: viewModel.showErrorLoadData
         )
         .onAppear {
-            viewModel.fetchDetails(of: viewModel.pokemon)
+            viewModel.fetchDetails()
             UISegmentedControl.appearance().backgroundColor = UIColor(Color.segmentedControlsBackground)
         }
         .navigationTitle(K.pokemonInfo)

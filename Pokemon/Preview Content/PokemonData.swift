@@ -49,6 +49,16 @@ extension Pokemon {
         isLegendary: false
     )
 
+    static var bulbasaurIncomplete = Pokemon(
+        id: 1,
+        name: "Bulbasaur",
+        defaultFrontalSprite: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"),
+        shinyFrontalSprite: URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png"),
+        types: [PokemonType(name: "Grass"), PokemonType(name: "Poison")],
+        generation: "Generation I",
+        evolvesTo: [PokemonEvolution(id: 2)]
+    )
+
     static var articuno = Pokemon(
         id: 144,
         name: "Articuno",

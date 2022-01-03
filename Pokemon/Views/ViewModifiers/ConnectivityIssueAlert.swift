@@ -17,7 +17,7 @@ struct ConnectivityIssueAlert: ViewModifier {
                 Alert(
                     title: Text(NetworkError.connectivityIssue.userMessageTitle),
                     message: Text(NetworkError.connectivityIssue.userMessageDescription),
-                    primaryButton: .cancel(),
+                    primaryButton: .default(Text(K.cancel)),
                     secondaryButton: .default(
                         Text(K.tryAgain),
                         action: tryAgainAction

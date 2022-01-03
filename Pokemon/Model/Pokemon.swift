@@ -70,3 +70,5 @@ extension Pokemon {
         "#" + String(format: "%03d", id)
     }
 }
+
+extension Pokemon: Equatable {}

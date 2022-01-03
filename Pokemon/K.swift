@@ -16,6 +16,7 @@ enum K {
     static let defaultSprite: LocalizedStringKey = "Default Sprite"
     static let shinySprite: LocalizedStringKey = "Shiny Sprite"
     static let tryAgain: LocalizedStringKey = "Try Again"
+    static let cancel: LocalizedStringKey = "Cancel"
 
     enum Network {
         static let pokemonsListURL = "https://dex-server.herokuapp.com/"

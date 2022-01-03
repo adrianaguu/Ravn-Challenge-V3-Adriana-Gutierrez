@@ -15,7 +15,7 @@ final class PokemonDetailViewModel: ObservableObject {
     @Published var shouldShowErrorLoadData = false
     @Published var evolutions: [Pokemon]?
 
-    var language = Locale.current.languageCode
+    private var language: String?
 
     private var cancellable: AnyCancellable?
     private let service: PokemonDetailService
@@ -25,7 +25,7 @@ final class PokemonDetailViewModel: ObservableObject {
         evolutions != nil
     }
 
-    var isFetchingComplete: Bool {
+    var detailsFetchingSuccesful: Bool {
         pokemon.flavorTextSpanish != nil
     }
 
@@ -33,11 +33,17 @@ final class PokemonDetailViewModel: ObservableObject {
         language == "en" ? pokemon.flavorTextEnglish : pokemon.flavorTextSpanish
     }
 
-    init(pokemon: Pokemon, getEvolvesTo: @escaping (Pokemon) -> [Pokemon]?, service: PokemonDetailService = .init()) {
+    init(
+        pokemon: Pokemon,
+        service: PokemonDetailService = .init(),
+        getEvolvesTo: @escaping (Pokemon) -> [Pokemon]?,
+        language: String? = Locale.current.languageCode
+    ) {
         self.service = service
         self.pokemon = pokemon
         self.getEvolvesTo = getEvolvesTo
         self.evolutions = getEvolvesTo(pokemon)
+        self.language = language
     }
 
     private func setPokemonDetails(from response: PokemonDetailsResponse) {
@@ -58,7 +64,7 @@ final class PokemonDetailViewModel: ObservableObject {
         shouldShowErrorLoadData = true
     }
 
-    func fetchDetails(of pokemon: Pokemon) {
+    func fetchDetails() {
         shouldShowErrorLoadData = false
         do {
             try cancellable = service.getPokemonDetails(id: pokemon.id)
@@ -74,7 +80,7 @@ final class PokemonDetailViewModel: ObservableObject {
                     self?.setPokemonDetails(from: $0)
                 }
         } catch {
-            networkError = .failedToLoadData
+            networkError = .invalidURL
         }
     }
 }
