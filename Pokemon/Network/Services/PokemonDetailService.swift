@@ -10,9 +10,9 @@ import Combine
 
 struct PokemonDetailService {
     let decoder: JSONDecoder
-    let session: URLSession
+    let session: NetworkServiceType
 
-    init(decoder: JSONDecoder = JSONDecoder.convertSnakeCaseStrategy, session: URLSession = .shared) {
+    init(decoder: JSONDecoder = JSONDecoder.convertSnakeCaseStrategy, session: NetworkServiceType = URLSession.shared) {
         self.decoder = decoder
         self.session = session
     }
@@ -22,8 +22,7 @@ struct PokemonDetailService {
             throw NetworkError.invalidURL
         }
 
-        return session.dataTaskPublisher(for: url)
-            .map(\.data)
+        return session.execute(for: url)
             .decode(type: PokemonDetailsResponse.self, decoder: decoder)
             .eraseToAnyPublisher()
     }

@@ -7,22 +7,22 @@
 
 import Foundation
 
-struct PokemonDetailsResponse: Codable {
-    struct Language: Codable {
+struct PokemonDetailsResponse: Codable, Equatable {
+    struct Language: Codable, Equatable {
         let name: String
     }
 
-    struct Version: Codable {
+    struct Version: Codable, Equatable {
         let name: String
     }
 
-    struct FlavorText: Codable {
+    struct FlavorText: Codable, Equatable {
         let flavorText: String
         let language: Language
         let version: Version
     }
 
-    struct Color: Codable {
+    struct Color: Codable, Equatable {
         let name: String
     }
 

@@ -6,20 +6,21 @@
 //
 
 import Foundation
-
-import Foundation
+import Combine
 @testable import Pokemon
 
-class URLSessionMock {
+class URLSessionMock: NetworkServiceType {
     let filename: String
+    let shouldFail: Bool
 
-    init(filename: String) {
+    init(filename: String, shouldFail: Bool) {
         self.filename = filename
+        self.shouldFail = shouldFail
     }
 
-    func dataTaskPublisher(for request: URL) -> URLSession.DataTaskPublisher {
+    func execute(for url: URL) -> AnyPublisher<Data, Error> {
         let url: URL
-        if filename.isEmpty {
+        if shouldFail {
             // swiftlint:disable:next force_unwrapping
             url = URL(string: "https://invalidurl.com")!
         } else {
@@ -27,5 +28,10 @@ class URLSessionMock {
             url = Bundle(for: type(of: self)).url(forResource: filename, withExtension: nil)!
         }
         return URLSession.shared.dataTaskPublisher(for: url)
+            .map(\.data)
+            .mapError {
+                $0 as Error
+            }
+            .eraseToAnyPublisher()
     }
 }
